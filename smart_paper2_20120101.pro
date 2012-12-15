@@ -1,5 +1,5 @@
 pro smart_paper2_20120101, res1tore=res1tore, res2tore=res2tore, res3store=res3store, res4store=res4store, $
-	skiptoplot2=skiptoplot2
+	skiptoplot2=skiptoplot2, skiptoplot4=skiptoplot4
 
 datapath='~/science/papers/active_regions_2_cycle/data/'
 plotpath='~/science/papers/active_regions_2_cycle/images/20110330/'
@@ -659,6 +659,8 @@ spole6065=average(magrebin[*,25:29],2)
 spole6570=average(magrebin[*,20:24],2)
 spole7075=average(magrebin[*,15:19],2)
 
+;goto,skiptoplot4
+
 ;mask flux signed butterfly diagram to pull out N and S high and low-latitude flux imbalances 
 nbins=n_elements(xarr)
 nfluxmask=fltarr(nbins)
@@ -683,6 +685,8 @@ for i=0,nbins-1 do begin
 	endif
 endfor
 
+;for i=0,nbins-1 do begin & if nfluxmask[i] then begin & FLUXSIGNEDhigh[i,60:60.+nfluxcent[i]-1.]=0. & FLUXSIGNEDlow[i,60.+nfluxcent[i]:*]=0. & endif & if sfluxmask[i] then begin & FLUXSIGNEDhigh[i,60.+sfluxcent[i]:59]=0. & FLUXSIGNEDlow[i,0:60.+sfluxcent[i]-1.]=0. & endif & endfor
+
 ;High-latitude AR net flux
 nfluxnethigh=total(FLUXSIGNEDhigh[*,60:*],2)
 sfluxnethigh=total(FLUXSIGNEDhigh[*,0:59],2)
@@ -690,6 +694,8 @@ sfluxnethigh=total(FLUXSIGNEDhigh[*,0:59],2)
 ;Low-latitude AR net flux
 nfluxnetlow=total(FLUXSIGNEDlow[*,60:*],2)
 sfluxnetlow=total(FLUXSIGNEDlow[*,0:59],2)
+
+stop
 
 ;Find where times best match for two images (one starts earlier, one ends later)
 wcliptim0=(where(abs(timrebin-min(xarr)) eq min(abs(timrebin-min(xarr)))))[0]
@@ -763,6 +769,7 @@ closeplotenv
 ;---END PLOT 4.--------------------------------------------------------------->
 
 
+
 ;PLOT 5. - Zonal polarity imbalances and netflux butterfly-------------------->
 
 setplotenv,xs=15,ys=15,/ps,file=plotpath+'plot_5_fluximbal_hi_lo.eps'
@@ -788,23 +795,56 @@ hline,0,col=!gray
 
 closeplotenv
 
+;---END PLOT 5.--------------------------------------------------------------->
+
+
+skiptoplot4:
+
 stop
 
+;PLOT 5.5 - Zonal polarity imbalances and netflux butterfly with extra panel-->
 
-;---END PLOT 5.--------------------------------------------------------------->
+setplotenv,xs=15,ys=15,/ps,file=plotpath+'plot_5_5_fluximbal_hi_lo.eps'
+setcolors,/sys,/silent,/quiet
+mintim=min(xarr)
+xran=[anytim('1-jan-1997'),anytim('1-jan-2006')]-mintim
+
+;Plot with hi and low lat bounds of AR butterfly diagram
+;utplot,xarr-mintim,nfluxnethigh*1d16,mintim,ps=10,ytit=textoidl('\Sigma\Phi_{NET}')+' [Mx] Mid Lat.',pos=[.12,.666,.95,.95],yran=[-5d22,5d22],/ysty,xtit='',xtickname=strarr(10)+' ',xran=xran,/xsty
+;oplot,xarr-mintim,nfluxnethigh*1d16,color=!red,ps=10
+;oplot,xarr-mintim,sfluxnethigh*1d16,color=!blue,ps=10
+;hline,0,col=!gray
+
+utplot,xarr-mintim,nfluxnetlow*1d16,mintim,ps=10,ytit=textoidl('\Sigma\Phi_{NET}')+' [Mx] Low Lat.',pos=[.12,.383,.95,.666],/noerase,yran=[-5d22,5d22],/ysty,xtit='',xtickname=strarr(10)+' ',xran=xran,/xsty
+oplot,xarr-mintim,nfluxnetlow*1d16,color=!red,ps=10
+oplot,xarr-mintim,sfluxnetlow*1d16,color=!blue,ps=10
+hline,0,col=!gray
+
+;Average B signed in some latitude range in flux butterfly diagram
+utplot,timrebincrop-mintim,nbsignedunipole,mintim,ps=10,pos=[.12,.1,.95,.383],ytit='<B'+textoidl('_{SIGNED}')+'> High Lat.',/noerase,yran=[-10,10],/ysty,xran=xran,/xsty
+oplot,timrebincrop-mintim,nbsignedunipole,color=!red,ps=10
+oplot,timrebincrop-mintim,sbsignedunipole,color=!blue,ps=10
+hline,0,col=!gray
+
+closeplotenv
+
+stop
+
+;---END PLOT 5.5--------------------------------------------------------------->
 
 
 ;PLOT 6. - plot polar fields and dipole sphere harmonics---------------------->
 
 setplotenv,xs=15,ys=15,/ps,file=plotpath+'plot_6_polarb_sphereharm.eps'
 setcolors,/sys,/silent,/quiet
-mintim=min(tflux27dseries)
+;mintim=min(tflux27dseries)
+mintim=min(ABTIMARR)
 
 linecol=0
 
 ;polar plot
 setcolors,/sys
-utplot,timrebin-mintim,npole6065,mintim,yran=[-10,10], pos=[.12,.525,.95,.95],ps=10,xran=minmax(timrebin)-mintim,/xsty,ytit='Polar Fields [G]',xtit='',xtickname=strarr(10)+' '
+utplot,timrebin-mintim,npole6065,mintim,yran=[-10,10], pos=[.12,.66,.95,.95],ps=10,xran=minmax(timrebin)-mintim,/xsty,ytit='Polar Fields [G]',xtit='',xtickname=strarr(10)+' '
 oplot,timrebin-mintim,npole6065,color=!red,ps=10
 oplot,timrebin-mintim,npole6570,color=!red,ps=10,lines=2
 ;oplot,timrebin-mintim,npole7075,color=!red,ps=10
@@ -817,8 +857,18 @@ legend,['Lat. 60-65','Lat. 65-70'],/top,/right,color=[linecol,linecol],lines=[0,
 
 
 ;spherical harmonic plot
+;monopole
+utplot,ABTIMARR-mintim,reform(COEFF02),mintim,pos=[.12,.37,.95,.66],ps=10,/noerase,xran=minmax(timrebin)-mintim,/xsty,yran=[-2,2],ytit='Harmonic Coefficients',xtit='',xtickname=strarr(10)+' '
+;3 bands total
+oplot,ABTIMARR-mintim,reform(COEFF00),ps=10,color=!gray
+;5 bands total
+oplot,ABTIMARR-mintim,reform(COEFF04),ps=10,lines=2
+hline,0,color=!gray
+
+legend,[textoidl('C_{0,0}'),textoidl('C_{2,0}'),textoidl('C_{4,0}')],/bottom,/right,color=[!gray,linecol,linecol],lines=[0,0,2]
+
 ;pure dipole
-utplot,ABTIMARR-mintim,reform(COEFF01),mintim,pos=[.12,.1,.95,.525],ps=10,/noerase,xran=minmax(timrebin)-mintim,/xsty,yran=[-2,2],ytit='Harmonic Coefficients'
+utplot,ABTIMARR-mintim,reform(COEFF01),mintim,pos=[.12,.1,.95,.37],ps=10,/noerase,xran=minmax(timrebin)-mintim,/xsty,yran=[-2,2],ytit='Harmonic Coefficients'
 ;two bands in each hemisphere
 oplot,ABTIMARR-mintim,reform(COEFF03),ps=10,color=!gray
 ;three bands in each hemisphere (AR, decay, pole)
@@ -839,6 +889,49 @@ closeplotenv
 stop
 
 ;---END PLOT 6.--------------------------------------------------------------->
+
+
+;PLOT 6.1 - plot polar fields and dipole sphere harmonics for r=2.5----------->
+
+restore,datapath+'pfss_monthly_phiab_plot_r1_75.sav',/ver
+
+setplotenv,xs=15,ys=15,/ps,file=plotpath+'plot_6_1_polarb_sphereharm_r1_75.eps'
+setcolors,/sys,/silent,/quiet
+;mintim=min(tflux27dseries)
+mintim=min(ABTIMARR)
+
+linecol=0
+setcolors,/sys
+
+;spherical harmonic plot
+;monopole
+utplot,ABTIMARR-mintim,reform(COEFF02),mintim,pos=[.12,.55,.95,.95],ps=10,/noerase,xran=minmax(timrebin)-mintim,/xsty,yran=[-.5,.5],/ysty,ytit='Harmonic Coefficients',xtit='',xtickname=strarr(10)+' '
+;3 bands total
+oplot,ABTIMARR-mintim,reform(COEFF00),ps=10,color=!gray
+;5 bands total
+oplot,ABTIMARR-mintim,reform(COEFF04),ps=10,lines=2
+hline,0,color=!gray
+
+legend,[textoidl('C_{0,0}'),textoidl('C_{2,0}'),textoidl('C_{4,0}')],/bottom,/right,color=[!gray,linecol,linecol],lines=[0,0,2]
+
+;pure dipole
+utplot,ABTIMARR-mintim,reform(COEFF01),mintim,pos=[.12,.1,.95,.55],ps=10,/noerase,xran=minmax(timrebin)-mintim,/xsty,yran=[-.5,.5],/ysty,ytit='Harmonic Coefficients'
+;two bands in each hemisphere
+oplot,ABTIMARR-mintim,reform(COEFF03),ps=10,color=!gray
+;three bands in each hemisphere (AR, decay, pole)
+oplot,ABTIMARR-mintim,reform(COEFF05),ps=10,lines=2
+
+;oplot,ABTIMARR-mintim,reform(COEFF02),ps=10,color=!red ;non hemisherically symmetric
+;oplot,ABTIMARR-mintim,reform(COEFF04),ps=10,color=!green ;non hemisherically symmetric
+hline,0,/gray
+
+legend,[textoidl('C_{1,0}'),textoidl('C_{3,0}'),textoidl('C_{5,0}')],/bottom,/right,color=[linecol,!gray,linecol],lines=[0,0,2]
+
+closeplotenv
+
+stop
+
+;---END PLOT 6.1-------------------------------------------------------------->
 
 
 ;PLOT 2.5 - AR complexes
