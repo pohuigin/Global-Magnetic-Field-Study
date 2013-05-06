@@ -2,7 +2,8 @@
 ;THETA=LATITUDE, PHI=LONGITUDE
 ;------------------------------------------------------------------------->
 
-function sphere_harmonic_coeff, ina_lm, inb_lm, mm=inmm, ll=inll, rr=inrr, use_br=use_br, use_phi=use_phi
+function sphere_harmonic_coeff, ina_lm, inb_lm, mm=inmm, ll=inll, rr=inrr, use_br=use_br, use_phi=use_phi, $
+	outa=outa, outb=outb
 
 a_lm=ina_lm
 b_lm=inb_lm
@@ -20,6 +21,9 @@ if keyword_set(use_phi) then $
 if keyword_set(use_br) then $
 	coeff=(-1.)*(A_lm[ll,mm,*]*ll*rr^(ll-1.) - B_lm[ll,mm,*]*(ll+1.*rr^(-ll-2.)))
 
+;To grab the specific a and b arrays for a given l,m
+outa=A_lm[ll,mm,*]
+outb=B_lm[ll,mm,*]
 
 
 return,coeff
@@ -121,6 +125,97 @@ save,nowarr,coeff00,coeff01,coeff02,coeff03,coeff04,coeff05, $
 	coeff10,coeff11,coeff12,coeff13,coeff14,coeff15, $
 	coeff20,coeff21,coeff22,coeff23,coeff24,coeff25, $
 	file='~/science/papers/active_regions_2_cycle/data/sphere_harm_mothly_timeseries.sav'
+
+stop
+
+end
+
+;------------------------------------------------------------------------->
+pro sphere_harmonic_plot_v2
+
+plotp='~/science/papers/active_regions_2_cycle/images/pfss_v2/'
+
+harmfile='~/science/papers/active_regions_2_cycle/data/pfss_monthly_phiab_coeff_v2.sav'
+restore,harmfile,/ver
+A_lm=PHIATARR
+B_lm=PHIBTARR
+abtimarr=anytim(date)
+
+stop
+
+coeff00=sphere_harmonic_coeff(a_lm, b_lm, mm=0., ll=0., rr=2.5, /use_phi)
+coeff01=sphere_harmonic_coeff(a_lm, b_lm, mm=0., ll=1., rr=2.5, /use_phi)
+coeff02=sphere_harmonic_coeff(a_lm, b_lm, mm=0., ll=2., rr=2.5, /use_phi)
+coeff03=sphere_harmonic_coeff(a_lm, b_lm, mm=0., ll=3., rr=2.5, /use_phi)
+coeff04=sphere_harmonic_coeff(a_lm, b_lm, mm=0., ll=4., rr=2.5, /use_phi)
+coeff05=sphere_harmonic_coeff(a_lm, b_lm, mm=0., ll=5., rr=2.5, /use_phi)
+
+save,abtimarr,coeff00,coeff01,coeff02,coeff03,coeff04,coeff05,file='~/science/papers/active_regions_2_cycle/data/pfss_monthly_phiab_plot_r2_5.sav'
+
+coeff00=sphere_harmonic_coeff(a_lm, b_lm, mm=0., ll=0., rr=1.75, /use_phi)
+coeff01=sphere_harmonic_coeff(a_lm, b_lm, mm=0., ll=1., rr=1.75, /use_phi)
+coeff02=sphere_harmonic_coeff(a_lm, b_lm, mm=0., ll=2., rr=1.75, /use_phi)
+coeff03=sphere_harmonic_coeff(a_lm, b_lm, mm=0., ll=3., rr=1.75, /use_phi)
+coeff04=sphere_harmonic_coeff(a_lm, b_lm, mm=0., ll=4., rr=1.75, /use_phi)
+coeff05=sphere_harmonic_coeff(a_lm, b_lm, mm=0., ll=5., rr=1.75, /use_phi)
+
+save,abtimarr,coeff00,coeff01,coeff02,coeff03,coeff04,coeff05,file='~/science/papers/active_regions_2_cycle/data/pfss_monthly_phiab_plot_r1_75_v2.sav'
+
+
+stop
+
+setcolors,/sys,/silent,/quiet
+utplot,anytim(nowarr)-min(anytim(nowarr)),coeff00,min(anytim(nowarr)),ps=-1,yrange=[-2,1.5]
+oplot,anytim(nowarr)-min(anytim(nowarr)),coeff01,ps=-2,color=!red
+oplot,anytim(nowarr)-min(anytim(nowarr)),coeff02,ps=-3,color=!orange
+oplot,anytim(nowarr)-min(anytim(nowarr)),coeff03,ps=-4,color=!yellow
+oplot,anytim(nowarr)-min(anytim(nowarr)),coeff04,ps=-5,color=!green
+oplot,anytim(nowarr)-min(anytim(nowarr)),coeff05,ps=-6,color=!cyan
+
+window_capture,file=plotp+'sphere_harm_axisymmetric_meq0_v2',/png
+
+;NON-AXISYMMETRIC MODES (split longitudinally, m=1)
+
+coeff10=sphere_harmonic_coeff(a_lm, b_lm, mm=1., ll=0., rr=1., /use_phi)
+coeff11=sphere_harmonic_coeff(a_lm, b_lm, mm=1., ll=1., rr=1., /use_phi)
+coeff12=sphere_harmonic_coeff(a_lm, b_lm, mm=1., ll=2., rr=1., /use_phi)
+coeff13=sphere_harmonic_coeff(a_lm, b_lm, mm=1., ll=3., rr=1., /use_phi)
+coeff14=sphere_harmonic_coeff(a_lm, b_lm, mm=1., ll=4., rr=1., /use_phi)
+coeff15=sphere_harmonic_coeff(a_lm, b_lm, mm=1., ll=5., rr=1., /use_phi)
+
+setcolors,/sys,/silent,/quiet
+utplot,anytim(nowarr)-min(anytim(nowarr)),coeff10,min(anytim(nowarr)),ps=-1,yrange=[-2,1.5]
+oplot,anytim(nowarr)-min(anytim(nowarr)),coeff11,ps=-2,color=!red
+oplot,anytim(nowarr)-min(anytim(nowarr)),coeff12,ps=-3,color=!orange
+oplot,anytim(nowarr)-min(anytim(nowarr)),coeff13,ps=-4,color=!yellow
+oplot,anytim(nowarr)-min(anytim(nowarr)),coeff14,ps=-5,color=!green
+oplot,anytim(nowarr)-min(anytim(nowarr)),coeff15,ps=-6,color=!cyan
+
+window_capture,file=plotp+'sphere_harm_nonaxisymmetric_meq1_v2',/png
+
+;NON-AXISYMMETRIC MODES (split longitudinally, m=2)
+
+coeff20=sphere_harmonic_coeff(a_lm, b_lm, mm=2., ll=0., rr=1., /use_phi)
+coeff21=sphere_harmonic_coeff(a_lm, b_lm, mm=2., ll=1., rr=1., /use_phi)
+coeff22=sphere_harmonic_coeff(a_lm, b_lm, mm=2., ll=2., rr=1., /use_phi)
+coeff23=sphere_harmonic_coeff(a_lm, b_lm, mm=2., ll=3., rr=1., /use_phi)
+coeff24=sphere_harmonic_coeff(a_lm, b_lm, mm=2., ll=4., rr=1., /use_phi)
+coeff25=sphere_harmonic_coeff(a_lm, b_lm, mm=2., ll=5., rr=1., /use_phi)
+
+setcolors,/sys,/silent,/quiet
+utplot,anytim(nowarr)-min(anytim(nowarr)),coeff20,min(anytim(nowarr)),ps=-1,yrange=[-2,1.5]
+oplot,anytim(nowarr)-min(anytim(nowarr)),coeff21,ps=-2,color=!red
+oplot,anytim(nowarr)-min(anytim(nowarr)),coeff22,ps=-3,color=!orange
+oplot,anytim(nowarr)-min(anytim(nowarr)),coeff23,ps=-4,color=!yellow
+oplot,anytim(nowarr)-min(anytim(nowarr)),coeff24,ps=-5,color=!green
+oplot,anytim(nowarr)-min(anytim(nowarr)),coeff25,ps=-6,color=!cyan
+
+window_capture,file=plotp+'sphere_harm_nonaxisymmetric_meq2_v2',/png
+
+save,nowarr,coeff00,coeff01,coeff02,coeff03,coeff04,coeff05, $
+	coeff10,coeff11,coeff12,coeff13,coeff14,coeff15, $
+	coeff20,coeff21,coeff22,coeff23,coeff24,coeff25, $
+	file='~/science/papers/active_regions_2_cycle/data/sphere_harm_mothly_timeseries_v2.sav'
 
 stop
 
