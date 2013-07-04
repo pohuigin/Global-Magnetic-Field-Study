@@ -2,8 +2,8 @@
 pro smart_paper2_20120101, res1tore=res1tore, res2tore=res2tore, res3store=res3store, res4store=res4store, $
 	skiptoplot2=skiptoplot2, skiptoplot4=skiptoplot4, skiptoplot6=skiptoplot6
 
-datapath='~/science/papers/active_regions_2_cycle/data/'
-plotpath='~/science/papers/active_regions_2_cycle/images/20110330/'
+datapath='./data/'
+plotpath='./plots/20110330/'
 
 ;STRUCTURE OF ALL SMART DETECTIONS-------------------------------------------->
 if not keyword_set(res1tore) then begin
@@ -106,7 +106,8 @@ loadct,0
 	plot, findgen(10),/nodat,/noerase,/xsty,xran=[0,1],/ysty,pos=[.67,.47,.91,.49], $
 		xticklen=.0001,yticklen=.0001,xtit='Flux [Mx]',xtickname=strarr(10)+' ',ytickname=strarr(10)+' ',chars=cbchars;,/nosq,xticks=3,
 	vline,[.333,.837295],col=255;,(1.-.837295)]
-	xyouts,0,-1.5,'0        1E21           1E22',/data,chars=cbchars
+print,'Minimum flux value='+string(min(FLUXIMAGE[where(fluximage ne 0)])*1d16,form='(E7.1)')
+	xyouts,-0.2,-1.5,'2.3E20    1E21           1E22',/data,chars=cbchars
 
 closeplotenv
 ;---END PLOT 0.--------------------------------------------------------------->
@@ -163,10 +164,12 @@ sFLUXgt5d22cont[where(sFLUXgt5d22IMAGE gt fluxlevel)]=1.
 sFLUXgt23cont[where(sFLUXgt23IMAGE gt fluxlevel)]=1.
 
 ;Find largest contour
-nFLUXcontsep=smart_cont_sep(nFLUXcont, contlevel=.5, vthresh=1, areathresh=1)
-nFLUXcontsep[where(nFLUXcontsep ne 1)]=0
-sFLUXcontsep=smart_cont_sep(sFLUXcont, contlevel=.5, vthresh=1, areathresh=1)
-sFLUXcontsep[where(sFLUXcontsep ne 1)]=0
+;nFLUXcontsep=smart_cont_sep(nFLUXcont, contlevel=.5, vthresh=1, areathresh=1)
+;nFLUXcontsep[where(nFLUXcontsep ne 1)]=0
+nFLUXcontsep=ar_largest_blob(nFLUXcont)
+;sFLUXcontsep=smart_cont_sep(sFLUXcont, contlevel=.5, vthresh=1, areathresh=1)
+;sFLUXcontsep[where(sFLUXcontsep ne 1)]=0
+sFLUXcontsep=ar_largest_blob(sFLUXcont)
 
 ;find centroid locations
 xyrcoord,size(nFLUXIMAGE),dum1,nyy
@@ -484,12 +487,25 @@ tend=anytim('1-jan-2009')
 ;Create year binned time series
 if not keyword_set(res4store) then begin
 	tstart=anytim('1-jan-1996')
-	smart_bin_time, arstr_arr.area, ARSTR_ARR_tim, areayrbin, tareayrbin,/year,/total, tstart=tstart
-	smart_bin_time, arstr_arr.bflux, ARSTR_ARR_tim, fluxyrbin, tfluxyrbin,/year,/total, tstart=tstart
-	smart_bin_time, arstr_arr.area, ARSTR_ARR_tim, areameanyrbin, tareayrbin,/year,/mean, tstart=tstart
-	smart_bin_time, arstr_arr.bflux, ARSTR_ARR_tim, fluxmeanyrbin, tfluxyrbin,/year,/mean, tstart=tstart
+	bin_data_time, arstr_arr.area, ARSTR_ARR_tim, areayrbin, tareayrbin,/year,/total, tstart=tstart
+	bin_data_time, arstr_arr.bflux, ARSTR_ARR_tim, fluxyrbin, tfluxyrbin,/year,/total, tstart=tstart
+	bin_data_time, arstr_arr.area, ARSTR_ARR_tim, areameanyrbin, tareayrbin,/year,/mean, tstart=tstart
+	bin_data_time, arstr_arr.bflux, ARSTR_ARR_tim, fluxmeanyrbin, tfluxyrbin,/year,/mean, tstart=tstart
+
+	bin_data_time, arstr_arr.area, ARSTR_ARR_tim, area6mobin, tarea6mobin,bin=6.*365./12.*24.*3600.,/total, tstart=tstart
+	bin_data_time, arstr_arr.bflux, ARSTR_ARR_tim, flux6mobin, tflux6mobin,bin=6.*365./12.*24.*3600.,/total, tstart=tstart
+	bin_data_time, arstr_arr.area, ARSTR_ARR_tim, areamean6mobin, tarea6mobin,bin=6.*365./12.*24.*3600.,/mean, tstart=tstart
+	bin_data_time, arstr_arr.bflux, ARSTR_ARR_tim, fluxmean6mobin, tflux6mobin,bin=6.*365./12.*24.*3600.,/mean, tstart=tstart
+
+	bin_data_time, arstr_arr.area, ARSTR_ARR_tim, areamobin, tareamobin,bin=3.*365./12.*24.*3600.,/total, tstart=tstart
+	bin_data_time, arstr_arr.bflux, ARSTR_ARR_tim, fluxmobin, tfluxmobin,bin=3.*365./12.*24.*3600.,/total, tstart=tstart
+	bin_data_time, arstr_arr.area, ARSTR_ARR_tim, areameanmobin, tareamobin,bin=3.*365./12.*24.*3600.,/mean, tstart=tstart
+	bin_data_time, arstr_arr.bflux, ARSTR_ARR_tim, fluxmeanmobin, tfluxmobin,bin=3.*365./12.*24.*3600.,/mean, tstart=tstart
 	
-	save,areayrbin,tareayrbin,fluxyrbin,tfluxyrbin,areameanyrbin,fluxmeanyrbin,file=datapath+'smart_yearbins_20110330.sav'
+	save,areayrbin,tareayrbin,fluxyrbin,tfluxyrbin,areameanyrbin,fluxmeanyrbin, $
+		areamobin,tareamobin,fluxmobin,tfluxmobin,areameanmobin,fluxmeanmobin, $
+		area6mobin,tarea6mobin,flux6mobin,tflux6mobin,areamean6mobin,fluxmean6mobin, $
+		file=datapath+'smart_yearbins_20110330.sav'
 endif else restore,datapath+'smart_yearbins_20110330.sav',/ver
 
 
@@ -526,6 +542,20 @@ tfluxyrbin=[(tfluxyrbin)[0],tfluxyrbin+halfbin]
 
 reftim=min(tareayrbin)
 
+;Do 3 month bin
+halfmobin=.5*3.*365./12.*3600.*24. ;seconds per half year
+areameanmobin=[areameanmobin[0],areameanmobin]
+tareamobin=[(tareamobin)[0],tareamobin+halfmobin]
+fluxmeanmobin=[fluxmeanmobin[0],fluxmeanmobin]
+tfluxmobin=[(tfluxmobin)[0],tfluxmobin+halfmobin]
+
+;Do 6 month bin
+half6mobin=.5*6.*365./12.*3600.*24. ;seconds per half year
+areamean6mobin=[areamean6mobin[0],areamean6mobin]
+tarea6mobin=[(tarea6mobin)[0],tarea6mobin+half6mobin]
+fluxmean6mobin=[fluxmean6mobin[0],fluxmean6mobin]
+tflux6mobin=[(tflux6mobin)[0],tflux6mobin+half6mobin]
+
 ;USE HISTOGRAM FOR DISTRIBUTION PLOTS
 ;AREA:
 ardistareamax = HISTOGRAM( ardistmax.area, BINSIZE=2500., locations=xareamax)
@@ -552,23 +582,33 @@ plawfluxdecay=fit_plaw(xfluxdecay, ardistfluxdecay, yfit=fitfluxdecay, xfit=xfit
 
 ;START PLOTTING--------------->
 savpos=!p.position
-setplotenv,xs=15,ys=18,/ps,file=plotpath+'plot_2_phase_cycle_ar_prop.eps'
+setplotenv,xs=15,ys=18,/ps,file=plotpath+'plot_2_phase_cycle_ar_prop.eps', /CLEAN, chars=1.4
 setcolors,/sys,/silent,/quiet
 
 ;Yearly averaged area and flux with vertical lines showing breaks between phases in cycle
-utplot,tareayrbin-reftim,areameanyrbin,reftim,ps=10,position=[.12,.83,.97,.99],xtit='',xtickname=strarr(10)+' ',ytitle='<Area> [Mm'+textoidl('^2')+']',/xsty;ytickformat='exponent',ytickformat='(E9.1)'
-vline,[trise,tmax,tdecay,tend]-reftim,thick=3,color=!gray
+utplot,tareayrbin-reftim,areameanyrbin,reftim,ps=10,position=[.12,.83,.97,.99],xtit='',xtickname=strarr(10)+' ',ytitle='<Area> [Mm'+textoidl('^2')+']',/xsty, ytickformat='tickinteger', $ ;,ytickformat='(E9.1)'
+	yran=[4001,11000],/ysty, yminor=1
+;Over plot smaller bin sizes
+oplot,tarea6mobin-reftim,areamean6mobin,ps=10,color=180,lines=2
+oplot,tareamobin-reftim,areameanmobin,ps=10,color=180
+oplot,tareayrbin-reftim,areameanyrbin,ps=10
+vline,[trise,tmax,tdecay,tend]-reftim,color=!red,lines=2
 
 ;indicate peaks on year bin plots
 plotsym,2,5,thick=5
 plots,[anytim('1-jun-2000'),anytim('1-jun-2002'),anytim('1-jun-2004')]-reftim,[6000,6000,6000],ps=8
 
-xyouts,anytim('1-jun-1997')-reftim,1000,'Rise',/data
-xyouts,anytim('1-jun-2000')-reftim,1000,'Plateau',/data
-xyouts,anytim('1-jun-2004')-reftim,1000,'Decay',/data
+xyouts,anytim('1-jun-1997')-reftim,4500,'Rise',/data
+xyouts,anytim('1-jun-2000')-reftim,4500,'Plateau',/data
+xyouts,anytim('1-jun-2004')-reftim,4500,'Decay',/data
 
-utplot,tfluxyrbin-reftim,fluxmeanyrbin*1d16,reftim,ps=10,position=[.12,.67,.97,.83],/noerase,ytitle='<'+textoidl('\Phi_{TOT}')+'> [Mx]',/xsty,xtit='Year (Begins 1 January 1996)'
-vline,[trise,tmax,tdecay,tend]-reftim,thick=3,color=!gray
+utplot,tfluxyrbin-reftim,fluxmeanyrbin*1d16,reftim,ps=10,position=[.12,.67,.97,.83],/noerase,ytitle='<'+textoidl('\Phi_{TOT}')+'> [Mx]',/xsty,xtit='Year (Begins 1 January 1996)', $
+	yran=[2d21,1.1d22],/ysty
+;Over plot smaller bin sizes
+oplot,tflux6mobin-reftim,fluxmean6mobin*1d16,ps=10,color=180,lines=2
+oplot,tfluxmobin-reftim,fluxmeanmobin*1d16,ps=10,color=180
+oplot,tfluxyrbin-reftim,fluxmeanyrbin*1d16,ps=10
+vline,[trise,tmax,tdecay,tend]-reftim,color=!red,lines=2
 
 ;indicate peaks on year bin plots
 plots,[anytim('1-jun-1999'),anytim('1-jun-2002'),anytim('1-jun-2004')]-reftim,[5d21,5d21,5d21],ps=8,thick=2
@@ -584,6 +624,9 @@ oplot,xareadecay,ardistareadecay,ps=10,color=!gray
 oplot,xfitareamax, fitareamax,color=!red,ps=-1,thick=5
 ;oplot,xfitarearise, fitarearise,color=!red,ps=-1
 ;oplot,xfitareadecay, fitareadecay,color=!red,ps=-1
+
+;Over-plot limits of the fit
+vline,minmax(xfitareamax),lines=2,color=!red,/vlog
 
 ;bin=.02
 ;plot_hist,alog10(ardistmax.area),ytitle='# Detections',/noerase,bin=bin,/log,xran=[3.5,5.5],/xsty,chars=!p.charsize,xtit='Log'+textoidl('_{10}(Area)')+' [Mm'+textoidl('^2')+']'
@@ -603,6 +646,8 @@ oplot,xfluxdecay,ardistfluxdecay,ps=10,color=!gray
 oplot,xfitfluxmax, fitfluxmax,color=!red,ps=-1,thick=5
 ;oplot,xfitfluxrise, fitfluxrise,color=!red,ps=-1
 ;oplot,xfitfluxdecay, fitfluxdecay,color=!red,ps=-1
+
+vline,minmax(xfitfluxmax),lines=2,color=!red,/vlog
 
 ;plot_hist,alog10(ardistmax.bflux*1d16),ytitle='# Detections',/noerase,bin=.01,/log,xran=[21,23.5],/xsty,chars=!p.charsize,xtit='Log'+textoidl('_{10}(\Phi_{TOT})')+' [Mx]'
 ;plot_hist,alog10(ardistrise.bflux*1d16),/oplot,bin=bin,lines=2
