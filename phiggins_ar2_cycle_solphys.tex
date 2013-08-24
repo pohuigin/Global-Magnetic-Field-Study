@@ -96,75 +96,70 @@
              }
 
 \begin{abstract}
-Currently, the most successful model of the magnetic solar cycle is the Babcock-Leighton process, which is able to qualitatively reproduce the large-scale solar magnetic field over time by simulating the surface transport of injected bipolar flux. To better constrain the model, accurate measurements of solar magnetic fields over the solar cycle, such as the statistical properties of active regions (ARs), are required. This work characterises the long-term patterns of AR emergence and evolution that are responsible for the progression of the observed magnetic solar cycle. The SolarMonitor Active Region Tracker (SMART) is used to automatically detect and characterise solar ARs using 15\,years of \emph{SOHO}/MDI line-of-sight magnetograms covering solar cycle 23. The heliographic location, area, magnetic flux, and flux imbalance of ARs are measured and compared to the results of a global magnetic flux assimilation and potential field spherical harmonic decomposition model. We draw several conclusions from this work: 
-
-
-
-It is concluded that these observations are consistent with the Babcock-Leighton process and furthermore, allow the properties of the magnetic flux injected into the model as well as the mechanisms that transport the flux to be constrained.
-
-
-
-
-
-an excess of ARs with large flux is found in the ``maximum" phase (2000\,--\,2003) around solar maximum
-
-We observe the following hemispheric asymmetries through the solar cycle using measurements of magnetic flux: i) the double peak during cycle 23 is only seen in the southern hemisphere; ii) the equatorward migration of AR emergence is significantly faster in the northern hemisphere; iii) ARs emerge for longer and more flux emerges overall in the southern hemisphere.
-
-Distributions of AR flux and area are scale-free, which indicates that the solar dynamo may operate in a self-organised critical state.
-
-Large-scale flux imbalance in the AR latitudes is opposite but similar in magnitude to that at higher latitudes. This is the first quantitative measurement connecting AR flux with diffuse high-latitude flux. 
-
-Three periods of increased average AR flux and area appear to be mainly responsible for the global polar magnetic field reversal.
-
- Considering the global magnetic field, similar large-scale features are observed in coronal images and PFSS extrapolations.
-
-By investigating the spherical harmonic coefficients obtained from the PFSS model, we find that although high-order moments ($l$$=$$[2,3,4,5]$, $m$$=$$0$) become dominant at the solar surface during certain times in the solar cycle, the large-scale magnetic field is shown to become less multipolar with height, tending toward the dipole moment.
-
-To investigate how the magnetic properties of ARs statistically change over the solar cycle and establish a quantitative connection between their properties and the global magnetic field configuration of the Sun. 
+Currently, the most successful model of the mechanisms driving the solar magnetic field reversal at the poles is the Babcock-Leighton-Moser model, which is able to qualitatively reproduce the large-scale solar magnetic field over time by simulating the surface transport of injected active regions (ARs). The model relies on empirical knowledge of AR properties, surface flows (including Moser's meridional flow), and the response of surface magnetic fields to those flows. To better constrain the model, accurate measurements of solar magnetic fields over the solar cycle, such as the statistical properties of ARs, are required. This work characterises the long-term patterns of AR emergence and evolution that are responsible for the progression of the observed magnetic solar cycle. The SolarMonitor Active Region Tracker (SMART) is used to automatically detect and characterise solar ARs using 15\,years of \emph{SOHO}/MDI line-of-sight magnetograms covering solar cycle 23. The heliographic location, area, magnetic flux, and flux imbalance of ARs are measured and compared to the results of a global magnetic flux assimilation and potential field spherical harmonic decomposition model. Several novel results are highlighted in this work. Three periods of increased average AR flux and area appear to be largely responsible for the global polar magnetic field reversal. Surface flux transport (the differential and meridional flows and supergranular dispersal) preferentially drag one polarity of flux from ARs poleward, as explained by the Babcock-Leighton-Moser model. For the first time, the magnetic properties of ARs are quantitatively compared to the global configuration of the solar magnetic field; the observed latitudinal bands of imbalanced flux (both dispersed and contained in ARs) determine the magnetic structure of the lower corona to a great extent. We conclude that these observations are consistent with the Babcock-Leighton-Moser model and furthermore, they allow the properties of the magnetic flux injected into simulations as well as the mechanisms that transport the flux to be constrained.
+%an excess of ARs with large flux is found in the ``maximum" phase (2000\,--\,2003) around solar maximum
+%We observe the following hemispheric asymmetries through the solar cycle using measurements of magnetic flux: i) the double peak during cycle 23 is only seen in the southern hemisphere; ii) the equatorward migration of AR emergence is significantly faster in the northern hemisphere; iii) ARs emerge for longer and more flux emerges overall in the southern hemisphere.
+%Distributions of AR flux and area are scale-free, which indicates that the solar dynamo may operate in a self-organised critical state.
+%Large-scale flux imbalance in the AR latitudes is opposite but similar in magnitude to that at higher latitudes. This is the first quantitative measurement connecting AR flux with diffuse high-latitude flux. 
+%Considering the global magnetic field, similar large-scale features are observed in coronal images and PFSS extrapolations.
+%By investigating the spherical harmonic coefficients obtained from the PFSS model, we find that although high-order moments ($l$$=$$[2,3,4,5]$, $m$$=$$0$) become dominant at the solar surface during certain times in the solar cycle, the large-scale magnetic field is shown to become less multipolar with height, tending toward the dipole moment.
+%To investigate how the magnetic properties of ARs statistically change over the solar cycle and establish a quantitative connection between their properties and the global magnetic field configuration of the Sun. 
 
 
 %\verb+SOLA_keyword_list.txt+.  
 \end{abstract}
-\keywords{Flares, Dynamics; Helicity, Magnetic; Magnetic fields, Corona}
+%\keywords{Sun: activity - Sun: magnetic field - Sun: photosphere - Sun: sunspots - Sun: surface magnetism - Sun: dynamo -  Sun: evolution}
+%\keywords{Flares, Dynamics; Helicity, Magnetic; Magnetic fields, Corona}
 \end{opening}
 %-------------------------------------------------
 
 \section{Introduction}
-     \label{S-Introduction} 
 
-This file describes the use of special \LaTeX\ features,
-useful to format an article for {\it Solar Physics}.  It is only a complement
-to the \LaTeX\ and \BibTeX\ documentation.  
-It is designed to be used as an example
-article giving the general commands. When compiled with \LaTeX\ 
-(see Section~\ref{S-BibTeX} for \BibTeX\ compilation), it provides
-some practical guidance on the main useful features. More information
-is included within this file, but commented out (with a \%).
-Un-commenting the \LaTeX\ commands permits one to show their 
-results in the compiled file.   
-    
-  %{\S}{\bf --- Road map of the paper} \\
-    % When writing a paper, it is worth to define a title for each paragraph:
-    %   gives a roadmap for the paper logic.
-    % Replacing automatically all the ``%{\S}{\bf'' by ``{\S}{\bf'' 
-    % brings these titles in the typeset of the paper.
- Section~\ref{S-general} gives examples and some general information
-to aid writing text with citations (Section~\ref{S-text})
-and defining labels (Section~\ref{S-labels}).
-Section~\ref{S-features} gives examples of equations 
-(Section~\ref{S-equations}), figures (Section~\ref{S-figures}), and 
-tables (Section~\ref{S-tables}).
-It continues by describing the inclusion of labeled references
-(Section~\ref{S-references}) and suggestions for an easy construction 
-of a list of references (Section~\ref{S-BibTeX}). 
-An appendix is shown as a particular section (Appendix~\ref{S-appendix}),
-which can contain figures and tables (Figure~\ref{F-appendix}, 
-Table~\ref{T-appendix}).
-There is a list of abbreviations used for the main journals (see the
-beginning of this \texttt{.tex} file, or the companion 
- \verb+SOLA_example_labels.tex+ 
-file, for the definition of the \LaTeX\ commands.
-Our conclusions are given in Section~\ref{S-Conclusion}. 
+%P-intro Paragraph
+Babcock-Leighton-Mosher (BLM) model \citep{Babcock:1961,Leighton:1964,Mosher:1977} explains the global solar magnetic dipole reversal by considering the properties of emergent active regions (ARs) and the velocity field that characterises the solar surface. Simulations built on these principles can approximate the evolution of the large-scale solar magnetic field \citep{Leighton:1964,Sheeley:1985,Devore:1986,Wang:1989}. For instance, a significant number of studies have specifically focused on predicting the evolution of the polar magnetic fields using this model and injecting simulated or observed ARs \citep{Devore:1987,schussler:2006,Wang:2009,Schrijver:2008b,hathaway}. Since the BLM model must be seeded using ARs (simulated or observed), knowledge of their properties is essential. Despite this, there have been few investigations determining the statistical magnetic properties of ARs at different phases of the solar cycle \citep{meunier:2003,zharkov:2006}, knowledge of which would be necessary to make the BLM model both self consistent and predictive. Also, it is known that ARs are important in determining the global magnetic field configuration\citep{wang:2003a, Schrijver:2003, schussler:2006}, but the authors are not aware of work directly comparing the properties of ARs to the global magnetic field. By studying AR magnetic fields and the diffuse fields surrounding them, in this work we diagnose the subsurface dynamo that forms ARs and determine how they evolve, once emerged, to affect the large-scale solar magnetic field configuration. 
+%using automated feature detection over a complete solar cycle, 
+%using a global assimilation and spherical harmonic decomposition model.
+
+%P-what are sunspots/ARs/MFs -%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+There is significant diversity in the properties of localised magnetic features observed over the solar surface. The term AR is used here to denote an entire localised structure, composed of plage and/or sunspots, while the term ``magnetic features" (MFs) is used in this work to denote any regions of strong magnetic field, including ARs. ARs usually emerge as compact, magnetically bipolar features, but both cumulatively \citep{meunier:2003} and at a given point in time can range in size and flux by orders of magnitude \citep{Parnell:2009}. The statistical properties of observed ARs provide limited insight into the mechanisms responsible for their emergence if they are considered with respect to time, since the properties of emergent ARs may change over the solar cycle.
+
+%Sunspots are localised regions of strong magnetic field that appear darker and cooler than the surrounding photospheric continuum.
+%Sunspots generally occur in clusters called sunspot groups and may be surrounded by regions of dispersing magnetic fields called ``plage".
+
+%P-The solar cycle -%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+The solar cycle is conventionally characterised by the time-dependent statistical properties of sunspot groups, which exhibit roughly 11- and 22-year periodicity. The number of sunspot groups present \citep[sunspot number][]{Schwabe:1844,Wolf:1861}, their latitudinal dependence \citep[Sp$\ddot{\mbox{o}}$rer's law][]{Maunder:1904), and the inclination of their bipole axis to the equator \cite[Joy's Law][]{Hale:1919}, which decreases with latitude \citep{Howard:1991}, exhibit an 11-year periodicity. Meanwhile, the magnetic polarity of leading and following sunspot groups (hale's law; hale 1919) follows a 22-year periodicity. Additionally, sunspot groups appear to exhibit a similar size distribution over a solar cycle\citep{harvey:1993}, but may show an excess of large regions or a depletion of small regions at cycle maximum \citep{tang:1984,Hathaway:2010b,Lefevre:2011,Kilcik:2011,deToma:2013}. The statistical properties of sunspot groups over time are well studied using white-light and continuum images, but the cycle dependence of detected AR size, flux, and net flux using magnetogram data have not been extensively studied \citep{meunier:2003,zharkov:2006}. 
+
+%P-how ARs drive the magnetic solar cycle -%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+The evolution of ARs, the specifics of which are modulated by their properties over the solar cycle, drives the magnetic polarity reversal of the global magnetic field. 
+ARs evolve due to the turbulent motions and large-scale flows of the near-surface solar plasma: differential axial-rotation of the Sun stretches features longitudinally \citep{Babcock:1961}; supergranule motions result in magnetic field dispersal \citep{Leighton:1964}, submergence, and cancellation; the meridional flow preferentially carries diffuse magnetic flux to the poles \cite{Mosher:1977}. The changing properties of ARs over the solar cycle work in concert with these phenomena to drive the reversal of the polar magnetic fields around the peak of each solar cycle. While this is well known, the quantitative result of these effects on the magnetic properties of ARs has not been well studied.
+
+%P-the magnetic solar cycle/ARs determine the global field structure -%%%%%%%%%%%%%%%%%
+It has been determined that to accurately predict the properties of the magnetic field of the Sun at large radii, the properties of low-latitude MFs on the solar surface must be taken into account \citep{wang:2003a, Schrijver:2003, schussler:2006}. The distribution of open flux and the global field configuration determine the shape of the heliospheric field, and thus can affect the space weather environment at Earth.
+Here, we seek to better understand the evolution of the global solar magnetic field in the context of a full 11-year activity cycle (i.e., half a magnetic cycle) by characterizing spatio-temporal distributions of MF properties.
+
+Generally, the global field is multipolar and we can describe its 3D geometry using the superposition of spherical harmonics from surface magnetic field measurements \citep{stenflo:1986, stenflo:1988, knaack:2005,mordvinov:2007,Mackay:2012,DeRosa:2012}.
+
+Properties of individual ARs (such as flux imbalance) locally affect the solar magnetic field structure, while large-scale properties (such as hemispheric flux imbalance) affect the global field.
+
+Observations of the latitudinal distribution of net flux over time show that while the AR belt progresses from high to low latitudes, unipolar flux is observed to be transported poleward. This has been observed in magnetic butterfly diagrams \citep{harvey:1992}, but has not been quantified.
+\citet{Choudhary:2002} investigated large-scale flux imbalance, finding that hemispheric flux imbalance is a function of the solar cycle and switches sign between cycles. \citet{zharkov:2006} statistically studied the excess flux of sunspot groups  for a portion of solar cycle 23, finding opposite imbalances in each hemisphere that reverse at the cycle minimum. \citet{Zharkov:2008} state that a phase relation exists between AR flux imbalance and the background high-latitude magnetic field. 
+
+
+%P-overview of the paper -%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+In this paper, which is based on work presented in Higgins (2013), we analyse the properties of detected ARs over solar cycle 23 and compare them to the global configuration of the solar magnetic field. %(Section \ref{subsect_imbharm}). 
+We establish a clear connection between strong-field features present in the AR belt, the excess of weak high-latitude net flux, and the global magnetic field structure that is determined by the dominance of certain spherical harmonics. The complete life cycle of surface magnetic flux has not been quantitatively studied using both automated feature detection and global field measurements.  
+In Section~\ref{obs_and_meth}, we discuss the methods used to construct our data set including the automatic detection algorithm, data reduction processes and the assimilation and spherical harmonic decomposition model used. Our results are presented and discussed in Section~\ref{results}, and concluding statements are made in Section~\ref{discussion}.
+
+
+
+
+
+
+
+
+
+
+
  
 \section{General Text} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
       \label{S-general}      

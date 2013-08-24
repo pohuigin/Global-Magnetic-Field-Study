@@ -49,7 +49,7 @@ if keyword_set(skiptoplot2) then begin & print,'SKIPPING TO PLOT 2...........' &
 
 ;SMART TIME SERIES (FLUX, FLUX NORTH, FLUX SOUTH, NET FLUX NORTH SOUTH)
 if not keyword_set(res2tore) then begin
-	restore,'~/science/data/cycle23_sav/sunspot_monthly_num_sdic.sav'; sstim,ssnum
+	restore,datapath+'sunspot_monthly_num_sdic.sav'; sstim,ssnum
 	tseriesbin=3600.*27.*24. ;bin by 27 days
 	;FLUX
 	smart_bin_time, arstr_arr.bflux, ARSTR_ARR_tim, flux27dseries, tflux27dseries, bin=tseriesbin,/total
@@ -77,7 +77,7 @@ if not keyword_set(res3tore) then begin
 	xx=smart_bin2d_simple(xbin=xbin,ybin=ybin,xran=xran,yran=yran,struct=arstr_arr, $ ;,/years
 		/latitude,timarr=ARSTR_ARR_tim,path=datapath,outfile=outfile,filemod='_27day_bin')
 	restore,outfile,/ver
-endif else restore,'~/science/papers/active_regions_2_cycle/data/butterfly_diags_lat_27day_bin.sav'
+endif else restore,datapath+'butterfly_diags_lat_27day_bin.sav'
 
 
 ;---PLOT 0. - solar cycle time series versus flux----------------------------->
@@ -87,17 +87,17 @@ setcolors,/sys,/silent,/quiet
 	postseries=[.13,.525,.95,.95]
 	tseriesrange=[min(xarr),max(xarr)]-mintimseries;[anytim('1-jun-1996'),anytim('1-jan-2011')]-mintimseries
 	;plot time series here: north total flux on disk per day, south total flux on disk per day
-	utplot,tflux27dseries-mintimseries,flux27dseries*1d16,mintimseries,ps=10,color=pcolor,xtit='',xtickname=strarr(10)+' ',xran=tseriesrange,/xsty,pos=postseries,ytit=textoidl('\Phi_{TOT}')+' [Mx]'
-	oplot,sstim-mintimseries,ssnum/max(ssnum)*max(flux27dseries)*1d16,color=!gray
-	oplot,tfluxN27dseries-mintimseries,fluxN27dseries*1d16,ps=nsym,color=ncolor
-	oplot,tfluxS27dseries-mintimseries,fluxS27dseries*1d16,ps=ssym,color=scolor
+	utplot,tflux27dseries-mintimseries,flux27dseries*1d16/1d23,mintimseries,ps=10,color=pcolor,xtit='',xtickname=strarr(10)+' ',xran=tseriesrange,/xsty,pos=postseries,ytit=textoidl('\Phi_{TOT}')+' ['+textoidl('\times10^{23}')+' Mx]'
+	oplot,sstim-mintimseries,ssnum/max(ssnum)*max(flux27dseries)*1d16/1d23,color=!gray
+	oplot,tfluxN27dseries-mintimseries,fluxN27dseries*1d16/1d23,ps=nsym,color=ncolor
+	oplot,tfluxS27dseries-mintimseries,fluxS27dseries*1d16/1d23,ps=ssym,color=scolor
 	
-	legend,['Total', 'North Hemi.', 'South Hemi.', 'Sunspot #'],/top,/right,color=[0,ncolor,scolor,!gray],psym=[0,nsym,ssym,0]
+	legend,['SSN',textoidl('\Phi_{TOT}'), textoidl('\Phi_{TOT,N}'), textoidl('\Phi_{TOT,S}')],/top,/right,color=[0,ncolor,scolor,!gray],psym=[0,nsym,ssym,0]
 loadct,0
 	;flux butterfly diag
 	posfluximg=[.13,.1,.95,.525]
 	plot_image,(-1.)*FLUXIMAGE^(.4) > (-300.),pos=posfluximg,color=255,/noerase
-	utplot,xarr-mintimseries,yarr,mintimseries,/nodat,pos=posfluximg,/noerase,/xsty,/ysty,ytit='Latitude',xtit='Year (Begins 1 June 1996)'
+	utplot,xarr-mintimseries,yarr,mintimseries,/nodat,pos=posfluximg,/noerase,/xsty,/ysty,ytit='Latitude [deg.]',xtit='Year (Begins 1 June 1996)'
 	
 	cbchars=2
 ;	colorbar,maxrange=(300.)^(1./.4)*1d16,minrange=0.,/invert,pos=[.6,.14,.8,.16],color=0,chars=!p.charsize
@@ -107,7 +107,7 @@ loadct,0
 		xticklen=.0001,yticklen=.0001,xtit='Flux [Mx]',xtickname=strarr(10)+' ',ytickname=strarr(10)+' ',chars=cbchars;,/nosq,xticks=3,
 	vline,[.333,.837295],col=255;,(1.-.837295)]
 print,'Minimum flux value='+string(min(FLUXIMAGE[where(fluximage ne 0)])*1d16,form='(E7.1)')
-	xyouts,-0.2,-1.5,'2.3E20    1E21           1E22',/data,chars=cbchars
+	xyouts,-0.25,-1.5,'< 2.3'+textoidl('\times')+'10!u20!n   10!u21!n             10!u22!n',/data,chars=cbchars
 
 closeplotenv
 ;---END PLOT 0.--------------------------------------------------------------->
@@ -272,8 +272,9 @@ pslinhi=mpfitexpr('P[0]*X+P[1]', (xarr[0:*])[wshi]/secperyr,(sfluxmm[1,0:slim])[
 ;print,slincenterr
 ;print,slinhierr
 
-save,nlincent,nlinlo,nlinhi,nlinlogt22,nlinhigt22,nlinlogt5d22,nlinhigt5d22,slincent,slinlo,slinhi,slinlogt22,slinhigt22,slinlogt5d22,slinhigt5d22, wncent, wscent, $
+save,sFLUXcontsep,nFLUXcontsep,nfluxcent,nlincent,nlinlo,nlinhi,nlinlogt22,nlinhigt22,nlinlogt5d22,nlinhigt5d22,nfluxmm,sfluxcent,slincent,slinlo,slinhi,slinlogt22,slinhigt22,slinlogt5d22,slinhigt5d22,sfluxmm, wncent, wscent,wnlo,wnhi,wshi,wslo, $
 	file=datapath+'smart_cycle_edge_linfits_20110330.sav'
+	
 
 ;---PLOT 1. - plot upper lower and centroid edges of flux butterfly diagram, also plot detection dots in latitude w/ color for flux
 ;CROP THIS PLOT:
@@ -283,7 +284,7 @@ setplotenv,xs=13,ys=13,/ps,file=plotpath+'plot_1_analyze_fluxbflydiag.eps'
 setcolors,/sys,/silent,/quiet
 
 ;Plot centroid lines
-utplot,xarr-mintimseries,nfluxcent,mintimseries,yran=[-60,60],/xsty,xran=[0,tcrop-mintimseries],pos=[.12,.525,.95,.95],xtickname=strarr(10)+' ',xtit='',/nodata,ytit='Latitude',thick=5
+utplot,xarr-mintimseries,nfluxcent,mintimseries,yran=[-60,60],/xsty,xran=[0,tcrop-mintimseries],pos=[.12,.525,.95,.95],xtickname=strarr(10)+' ',xtit='',/nodata,ytit='Latitude [deg.]',thick=5
 oplot,xarr-mintimseries,nfluxcent,color=!gray,ps=10 ;,thick=3
 oplot,xarr-mintimseries,sfluxcent,color=!gray,ps=10 ;,thick=3
 
@@ -324,14 +325,14 @@ oplot,xarr[smin:slim]-mintimseries,(slinhigt22[1]*(xarr[smin:slim])/secperyr+sli
 vline,xarr[wmiss]-mintimseries,color=!white,thick=16
 hline,0,color=!gray,thick=10
 
-legend,[textoidl('\Phi')+' Edge',textoidl('\Phi')+' > 1E22 Mx Edge',textoidl('\Phi')+'Centroid','Linear Fits'],psym=[1,4,0,0],color=[!gray,!gray,!gray,0],/top,/right,chars=1.4;,number=[1,1,.5,.5]
+legend,[textoidl('\Phi')+' Edge',textoidl('\Phi')+' > 10!u22!n Mx Edge',textoidl('\Phi')+' Centroid','Linear Fits'],psym=[1,4,0,0],color=[!gray,!gray,!gray,0],/top,/right,chars=1.4;,number=[1,1,.5,.5]
 
 fluxstack=[[-sFLUXcont-sFLUXgt22cont-sFLUXgt5d22cont-sFLUXgt23cont],[-nFLUXcont-nFLUXgt22cont-nFLUXgt5d22cont-nFLUXgt23cont]]
 ;fluxstack=[[sFLUXcont+sFLUXgt22cont+sFLUXgt5d22cont+sFLUXgt23cont],[nFLUXcont+nFLUXgt22cont+nFLUXgt5d22cont+nFLUXgt23cont]]
 fluxstack[where(fluxstack eq fluxstack[0,0])]=max(fluxstack)
 plot_image,fluxstack[0:wcrop,*],/noerase,pos=[.12,.1,.95,.525],color=255,/xsty,/nosq
-contour,([[sFLUXcontsep],[nFLUXcontsep]])[0:wcrop,*],/over,color=0 ;outline "this" solar cycle.
-utplot,xarr-mintimseries,nfluxcent,mintimseries,yran=[-60,60],/xsty,xran=[0,tcrop-mintimseries],thick=3,pos=[.12,.1,.95,.525],/nodata,/noerase,ytit='Latitude',xtit='Year (Begins 1 June 1996)'
+contour,([[sFLUXcontsep],[nFLUXcontsep]])[0:wcrop,*],/over,color=0,level=0.5,thick=5,pos=[.12,.1,.95,.525] ;outline "this" solar cycle.
+utplot,xarr-mintimseries,nfluxcent,mintimseries,yran=[-60,59.9],/ysty,/xsty,xran=[0,tcrop-mintimseries],thick=3,pos=[.12,.1,.95,.525],/nodata,/noerase,ytit='Latitude [deg.]',xtit='Year (Begins 1 June 1996)'
 
 ;shade out prev SC stuff
 ;polyfill,[-nlinlo[0]/nlinlo[1]*secperyr,-slinhi[0]/slinhi[1]*secperyr,anytim(mintimseries),anytim(mintimseries)]-mintimseries,[0,0,slinhi[1]*(anytim(mintimseries)/secperyr)+slinhi[0],nlinlo[1]*(anytim(mintimseries)/secperyr)+nlinlo[0]], $
@@ -339,11 +340,11 @@ utplot,xarr-mintimseries,nfluxcent,mintimseries,yran=[-60,60],/xsty,xran=[0,tcro
 
 vline,xarr[wmiss]-mintimseries,color=!white,thick=16
 hline,0,color=!gray,thick=10
-plot_image,rebin([[3,2,1,0],[3,2,1,0]],200,100,/samp),position=[.6,.485,.85,.505],/noerase,yticklen=.0001,xticklen=1,xtickname=strarr(10)+' ',ytickname=strarr(10)+' ',color=0;,/nosq
+plot_image,rebin([[4,3,2,1,0],[4,3,2,1,0]],250,100,/samp),position=[.5,.485,.9,.505],/noerase,yticklen=.0001,xticklen=1,xtickname=strarr(10)+' ',ytickname=strarr(10)+' ',color=0;,/nosq
 ;plot_image,rebin([[0,1,2,3],[0,1,2,3]],200,100,/samp),position=[.6,.485,.85,.505],/noerase,yticklen=.0001,xticklen=1,xtickname=strarr(10)+' ',ytickname=strarr(10)+' ',color=0;,/nosq
 !p.charsize=1.4
-xyouts,.6,.458,'   >0         >1E22   >5E22   >1E23 [Mx]',/norm,charsize=1.4
-
+xyouts,.5,.458,'< 2.3'+textoidl('\times')+'10!u20!n  > 2.3'+textoidl('\times')+'10!u20!n    > 10!u22!n      > 5'+textoidl('\times')+'10!u22!n     > 10!u23!n',/norm,charsize=1.4
+xyouts,.675,.44,'[Mx]',/norm,charsize=1.4
 closeplotenv
 
 stop
@@ -362,7 +363,7 @@ rowname=['','Fit',' $ mX+b $ ','reduced $ \Chi^2 $ ']
 table1data=[['','N','S','N','S'],[rowname[1],' $ '+slopes[[0,3,1,4]]+'X'+'+'+yints[[0,3,1,4]]+' $ '],[rowname[2],chisqred]]
 ;table1cols=['Fit',' $ mX+b $ ','reduced $ \Chi^2 $ ']
 table1cols=['','\multicolumn{2}{l|}{Equatorward}','\multicolumn{2}{l|}{Centroid}']
-array2textable, table1data, table1cols, 'Linear fits to poleward edges and latitude centroids of hemispheric flux in MF detections.', label='table_1_line_fits', outfile=datapath+'figure_1_linefit_table.txt',/quiet
+;array2textable, table1data, table1cols, 'Linear fits to poleward edges and latitude centroids of hemispheric flux in MF detections.', label='table_1_line_fits', outfile=datapath+'figure_1_linefit_table.txt',/quiet
 ;---END PLOT 1.--------------------------------------------------------------->
 
 
@@ -378,6 +379,10 @@ nsmin=[40,60] ;north then south for minimum index to include in the fit
 ;if (where(sfluxmm eq missing))[0] ne -1 then sfluxmm[where(sfluxmm eq missing)]=0./0.
 wslo=where(finite(sfluxmm[0,nsmin[1]:*]) eq 1)
 wnhi=where(finite(nfluxmm[1,nsmin[0]:*]) eq 1)
+
+save,wslo,wnhi,file=datapath+'wnhi_wslo_variables'
+
+stop
 
 ;re-do poleward line fits
 slinlo=linfit((xarr[nsmin[1]:*])[wslo]/secperyr,(sfluxmm[0,nsmin[1]:*])[wslo]-60.);, MEASURE=fltarr(n_elements(wslo))+.5, chisq=slochi)
@@ -437,17 +442,17 @@ endfor
 setplotenv,/ps,file=plotpath+'plot_1a_analyze_timearemerge.eps'
 setcolors,/sile,/sys
 ;estimate flux at each latitude
-plot,yarr,total([[sFLUXIMAGE],[nFLUXIMAGE]]*1d16*timearcycle,1), /xsty, xran=[-60,60], $
-	xticklen=.0001, yticklen=.0001, xtickname=strarr(10)+' ', ytickname=strarr(10)+' ', /ysty, yran=[0,15d23], color=!gray, thick=5, ps=10, $
+plot,yarr,total([[sFLUXIMAGE],[nFLUXIMAGE]]*1d16*timearcycle,1)/1d23, /xsty, xran=[-60,60], $
+	xticklen=.0001, yticklen=.0001, xtickname=strarr(10)+' ', ytickname=strarr(10)+' ', /ysty, yran=[0,15], color=!gray, thick=5, ps=10, $
 	pos=[.1,.15,.85,.95]
 plot,yarr,total(timearcycle,1)*(xarr[1]-xarr[0])/3600./24./365.,ps=10,yran=[0,15], $
-	ytitle='MF Emergence [Years]', xtitle='Latitude',thick=10, /xsty, xran=[-60,60],/noerase, $
+	ytitle='MF Emergence Time [Years]', xtitle='Latitude',thick=10, /xsty, xran=[-60,60],/noerase, $
 	pos=[.1,.15,.85,.95]
 oplot,yarr,dtemergelat,ps=10
-vline,0,lines=2,yran=[0,11.5]
+vline,0,lines=2,yran=[0,15]
 ;oplot,yarr,total([[sdetmask],[ndetmask]],1)*(xarr[1]-xarr[0])/3600./24./365.,ps=10,color=150
-axis,yaxis=1, /ysty, yran=[0,15d23],color=!gray,ytit=textoidl('\Phi_{TOT}')+' [Mx]'
-legend, /left,/top,[textoidl('\Sigma t')+' Emergence',textoidl('\Delta t')+' Start-End',textoidl('\Sigma\Phi_{TOT}')],lines=[0,0,0],color=[0,0,!gray],thick=[5,10,5]
+axis,yaxis=1, /ysty, yran=[0,15],color=!gray,ytit=textoidl('\Phi_{TOT}')+' ['+textoidl('\times10^{23}')+' Mx]'
+legend, /left,/top,[textoidl('\Sigma')+'t MF Detected',textoidl('\Delta')+'t Cycle',textoidl('\Sigma\Phi_{TOT}')],lines=[0,0,0],color=[0,0,!gray],thick=[10,5,5]
 closeplotenv
 
 
@@ -558,9 +563,9 @@ tflux6mobin=[(tflux6mobin)[0],tflux6mobin+half6mobin]
 
 ;USE HISTOGRAM FOR DISTRIBUTION PLOTS
 ;AREA:
-ardistareamax = HISTOGRAM( ardistmax.area, BINSIZE=2500., locations=xareamax)
-ardistarearise = HISTOGRAM( ardistrise.area, BINSIZE=2500.,locations=xarearise)
-ardistareadecay = HISTOGRAM( ardistdecay.area, BINSIZE=2500.,locations=xareadecay)
+ardistareamax = HISTOGRAM( ardistmax.area, BINSIZE=2500., locations=xareamax,min=min(ardistmax.area))
+ardistarearise = HISTOGRAM( ardistrise.area, BINSIZE=2500.,locations=xarearise,min=min(ardistmax.area))
+ardistareadecay = HISTOGRAM( ardistdecay.area, BINSIZE=2500.,locations=xareadecay,min=min(ardistmax.area))
 
 ;FLUX:
 ardistfluxmax = HISTOGRAM( ardistmax.bflux*1d16, BINSIZE=3d21, locations=xfluxmax)
@@ -582,33 +587,33 @@ plawfluxdecay=fit_plaw(xfluxdecay, ardistfluxdecay, yfit=fitfluxdecay, xfit=xfit
 
 ;START PLOTTING--------------->
 savpos=!p.position
-setplotenv,xs=15,ys=18,/ps,file=plotpath+'plot_2_phase_cycle_ar_prop.eps', /CLEAN, chars=1.4
+setplotenv,xs=15,ys=18,/ps,file=plotpath+'plot_2_phase_cycle_ar_prop.eps', /CLEAN, chars=1.4,/times,/bold
 setcolors,/sys,/silent,/quiet
 
 ;Yearly averaged area and flux with vertical lines showing breaks between phases in cycle
-utplot,tareayrbin-reftim,areameanyrbin,reftim,ps=10,position=[.12,.83,.97,.99],xtit='',xtickname=strarr(10)+' ',ytitle='<Area> [Mm'+textoidl('^2')+']',/xsty, ytickformat='tickinteger', $ ;,ytickformat='(E9.1)'
-	yran=[4001,11000],/ysty, yminor=1
+utplot,tareayrbin-reftim,areameanyrbin/1d3,reftim,ps=10,position=[.12,.83,.97,.99],xtit='',xtickname=strarr(10)+' ',ytitle='<Area> ['+textoidl('\times10^3')+' Mm'+textoidl('^2')+']',/xsty, ytickformat='tickinteger', $ ;,ytickformat='(E9.1)'
+	yran=[4.001,11.000],/ysty, yminor=1
 ;Over plot smaller bin sizes
-oplot,tarea6mobin-reftim,areamean6mobin,ps=10,color=180,lines=2
-oplot,tareamobin-reftim,areameanmobin,ps=10,color=180
-oplot,tareayrbin-reftim,areameanyrbin,ps=10
-vline,[trise,tmax,tdecay,tend]-reftim,color=!red,lines=2
+oplot,tarea6mobin-reftim,areamean6mobin/1d3,ps=10,color=180,lines=2
+oplot,tareamobin-reftim,areameanmobin/1d3,ps=10,color=180
+oplot,tareayrbin-reftim,areameanyrbin/1d3,ps=10
+vline,[trise,tmax,tdecay,tend]-reftim,color=!red,lines=0
 
 ;indicate peaks on year bin plots
 plotsym,2,5,thick=5
 plots,[anytim('1-jun-2000'),anytim('1-jun-2002'),anytim('1-jun-2004')]-reftim,[6000,6000,6000],ps=8
 
 xyouts,anytim('1-jun-1997')-reftim,4500,'Rise',/data
-xyouts,anytim('1-jun-2000')-reftim,4500,'Plateau',/data
-xyouts,anytim('1-jun-2004')-reftim,4500,'Decay',/data
+xyouts,anytim('1-jun-2000')-reftim,4500,'Maximum',/data
+xyouts,anytim('1-jun-2004')-reftim,4500,'Decline',/data
 
-utplot,tfluxyrbin-reftim,fluxmeanyrbin*1d16,reftim,ps=10,position=[.12,.67,.97,.83],/noerase,ytitle='<'+textoidl('\Phi_{TOT}')+'> [Mx]',/xsty,xtit='Year (Begins 1 January 1996)', $
-	yran=[2d21,1.1d22],/ysty
+utplot,tfluxyrbin-reftim,fluxmeanyrbin*1d16/1d21,reftim,ps=10,position=[.12,.67,.97,.83],/noerase,ytitle='<'+textoidl('\Phi_{TOT}')+'> ['+textoidl('\times10^{21}')+' Mx]',/xsty,xtit='Year (Begins 1 January 1996)', $
+	yran=[2,11],/ysty
 ;Over plot smaller bin sizes
-oplot,tflux6mobin-reftim,fluxmean6mobin*1d16,ps=10,color=180,lines=2
-oplot,tfluxmobin-reftim,fluxmeanmobin*1d16,ps=10,color=180
-oplot,tfluxyrbin-reftim,fluxmeanyrbin*1d16,ps=10
-vline,[trise,tmax,tdecay,tend]-reftim,color=!red,lines=2
+oplot,tflux6mobin-reftim,fluxmean6mobin*1d16/1d21,ps=10,color=180,lines=2
+oplot,tfluxmobin-reftim,fluxmeanmobin*1d16/1d21,ps=10,color=180
+oplot,tfluxyrbin-reftim,fluxmeanyrbin*1d16/1d21,ps=10
+vline,[trise,tmax,tdecay,tend]-reftim,color=!red,lines=0
 
 ;indicate peaks on year bin plots
 plots,[anytim('1-jun-1999'),anytim('1-jun-2002'),anytim('1-jun-2004')]-reftim,[5d21,5d21,5d21],ps=8,thick=2
@@ -621,7 +626,7 @@ oplot,xarearise,ardistarearise,ps=10,lines=2
 oplot,xareadecay,ardistareadecay,ps=10,color=!gray
 
 ;plot area P-Law fits
-oplot,xfitareamax, fitareamax,color=!red,ps=-1,thick=5
+oplot,xfitareamax, fitareamax,color=!red,ps=-1,thick=10
 ;oplot,xfitarearise, fitarearise,color=!red,ps=-1
 ;oplot,xfitareadecay, fitareadecay,color=!red,ps=-1
 
@@ -633,17 +638,17 @@ vline,minmax(xfitareamax),lines=2,color=!red,/vlog
 ;plot_hist,alog10(ardistrise.area),/oplot,bin=bin,/log,lines=2
 ;plot_hist,alog10(ardistdecay.area),/oplot,bin=bin,/log,color=!gray
 
-legend,['Rise','Plateau','Decay'],lines=[2,0,0],color=[!black,!black,!gray],/right,/top
+legend,['Rise','Maximum','Decline'],lines=[2,0,0],color=[!black,!black,!gray],/right,/top
 
 ;plot flux distributions here
 !p.position=[.12,.06,.97,.31]
-plot,xfluxmax,ardistfluxmax,ps=10,/xlog,/ylog,/xsty,/ysty,xran=[1d20,5d23],yran=[1,1d6],ytitle='# Detections',chars=!p.charsize,xtit=textoidl('\Phi_{TOT}')+' [Mx]',/noerase
+plot,xfluxmax,ardistfluxmax,ps=10,/xlog,/ylog,/xsty,/ysty,xran=[2d20,5d23],yran=[1,1d6],ytitle='# Detections',chars=!p.charsize,xtit=textoidl('\Phi_{TOT}')+' [Mx]',/noerase
 oplot,xfluxmax,ardistfluxmax,ps=4
 oplot,xfluxrise,ardistfluxrise,ps=10,lines=2
 oplot,xfluxdecay,ardistfluxdecay,ps=10,color=!gray
 
 ;plot flux P-Law fits
-oplot,xfitfluxmax, fitfluxmax,color=!red,ps=-1,thick=5
+oplot,xfitfluxmax, fitfluxmax,color=!red,ps=-1,thick=10
 ;oplot,xfitfluxrise, fitfluxrise,color=!red,ps=-1
 ;oplot,xfitfluxdecay, fitfluxdecay,color=!red,ps=-1
 
@@ -655,7 +660,7 @@ vline,minmax(xfitfluxmax),lines=2,color=!red,/vlog
 
 ;Create LATEX table for power-law fits
 nconstrain=2. ;number of fitting contraints [b,m] (?)
-rowname=['Rise','Plateau','Decay']
+rowname=['Rise','Maximum','Decline']
 areaplawcol='$ '+strtrim(string([plawarearise[1],plawareamax[1],plawareadecay[1]],form='(F7.2)'),2)+' $'
 areaplawcolerr='$ '+strtrim(string([fitareariseerr[1],fitareamaxerr[1],fitareadecayerr[1]],form='(F7.2)'),2)+' $'
 fluxplawcol='$ '+strtrim(string([plawfluxrise[1],plawfluxmax[1],plawfluxdecay[1]],form='(F7.2)'),2)+' $'
@@ -664,7 +669,7 @@ areachisqcol='$ '+strtrim(string([chiarearise,chiareamax,chiareadecay],form='(F7
 fluxchisqcol='$ '+strtrim(string([chifluxrise,chifluxmax,chifluxdecay],form='(F7.2)'),2)+' $'
 table1data=transpose([[rowname],[areaplawcol+' $ \pm $ '+areaplawcolerr],[areachisqcol],[fluxplawcol+' $ \pm $ '+fluxplawcolerr],[fluxchisqcol]])
 table1cols=['Cycle Phase','Area',' $ \Chi^2 $ ','Flux',' $ \Chi^2 $ ']
-array2textable, table1data, table1cols, 'Power-law fits to distributions of MF area and flux.', label='table_2_line_fits', outfile=datapath+'figure_3_plawfit_table.txt',/quiet
+;array2textable, table1data, table1cols, 'Power-law fits to distributions of MF area and flux.', label='table_2_line_fits', outfile=datapath+'figure_3_plawfit_table.txt',/quiet
 
 
 !p.position=savpos
@@ -685,9 +690,10 @@ stop
 
 ;ANALYZE MAGNETIC BUTTERFLY DIABGRAM------------------------------------------>
 restore,datapath+'smart_cycle_edge_linfits_20110330.sav' ;to get WNCENT and WSCENT
-restore,'~/science/data/cycle23_sav/carrington_mdi/cycle23_butterfly_flux_maps_final.sav',/ver
-restore,'~/science/papers/active_regions_2_cycle/data/butterfly_diags_lat_27day_bin.sav',/ver
+restore,datapath+'cycle23_butterfly_flux_maps_final.sav',/ver
+restore,datapath+'butterfly_diags_lat_27day_bin.sav',/ver
 restore,datapath+'pfss_monthly_phiab_plot.sav',/ver
+restore,datapath+'wnhi_wslo_variables',/ver
 ;rebin butterfly diagram to 27 day bins by 1 degree
 bin=27. ;in days
 magrebin=rebin1d(MEANNETB60,bin,direct=1)
@@ -742,8 +748,6 @@ sfluxnethigh=total(FLUXSIGNEDhigh[*,0:59],2)
 nfluxnetlow=total(FLUXSIGNEDlow[*,60:*],2)
 sfluxnetlow=total(FLUXSIGNEDlow[*,0:59],2)
 
-stop
-
 ;Find where times best match for two images (one starts earlier, one ends later)
 wcliptim0=(where(abs(timrebin-min(xarr)) eq min(abs(timrebin-min(xarr)))))[0]
 wcliptim1=(where(abs(xarr-max(timrebin)) eq min(abs(xarr-max(timrebin)))))[0]
@@ -754,7 +758,7 @@ xarrcrop=xarr[0:wcliptim1]
 
 nbinscrop=n_elements(xarrcrop)
 
-;Pull out mean B field north and south in unipolar flows
+;Pull out mean B field north and south in unipolar flows (Hi lat)
 nbsignedunipole=fltarr(nbinscrop)+0./0.
 sbsignedunipole=fltarr(nbinscrop)+0./0.
 nbmask=fltarr(nbinscrop)
@@ -762,16 +766,38 @@ nbmask[wnhi]=1
 sbmask=fltarr(nbinscrop)
 sbmask[wslo]=1
 
+;Pull out mean B field north and south in Low lat
+nbsignedlow=fltarr(nbinscrop)+0./0.
+sbsignedlow=fltarr(nbinscrop)+0./0.
+nblomask=fltarr(nbinscrop)
+nblomask[wnlo]=1
+sblomask=fltarr(nbinscrop)
+sblomask[wshi]=1
+
 ;Crop to match size of B signed array
 nbmask=nbmask[0:wcliptim1] & sbmask=sbmask[0:wcliptim1]
+nblomask=nblomask[0:wcliptim1] & sblomask=sblomask[0:wcliptim1]
+
 nfluxmmcrop=nfluxmm[*,0:wcliptim1] & sfluxmmcrop=sfluxmm[*,0:wcliptim1]
+
+
+
 
 wnhimask=where(nbmask eq 0)
 wslomask=where(sbmask eq 0)
+
+wnlomask=where(nblomask eq 0)
+wshimask=where(sblomask eq 0)
+
 magrebinhigh=magrebincrop
 magrebinhigh[wnhimask,90:*]=0./0.
 magrebinhigh[wslomask,0:89]=0./0.
 magrebinhighmask=fltarr((size(magrebinhigh))[1],(size(magrebinhigh))[2])
+
+magrebinlow=magrebincrop
+magrebinlow[wnlomask,90:*]=0./0.
+magrebinlow[wshimask,0:89]=0./0.
+magrebinlowmask=fltarr((size(magrebinlow))[1],(size(magrebinlow))[2])
 
 for i=0,nbinscrop-1 do begin
 	if nbmask[i] then begin
@@ -782,10 +808,22 @@ for i=0,nbinscrop-1 do begin
 		sbsignedunipole[i]=mean(magrebinhigh[i,(sfluxmmcrop[0,i]+30.-10.)>0:(sfluxmmcrop[0,i]+30.)>0])
 		magrebinhighmask[i,(sfluxmmcrop[0,i]+30.-10.)>0:(sfluxmmcrop[0,i]+30.)>0]=1
 	endif
+
+	if nblomask[i] then begin
+		nbsignedlow[i]=mean(magrebinlow[i,90.:(nfluxmmcrop[1,i]+90.)>0]) ;added ">0" because nfluxmmcrop has -NaN values! Need to check this...
+		magrebinlowmask[i,90:(nfluxmmcrop[1,i]+90.)>0]=1
+	endif
+	if sbmask[i] then begin
+		sbsignedlow[i]=mean(magrebinlow[i,(sfluxmmcrop[0,i]+30.)>0:90.])
+		magrebinlowmask[i,(sfluxmmcrop[0,i]+30.)>0:90]=1
+	endif
 endfor
 
+save,nfluxnethigh,sfluxnethigh,nfluxnetlow,sfluxnetlow,nbsignedunipole,sbsignedunipole,nbsignedlow,sbsignedlow,file=datapath+'hilowlat_flux_arrays'
+
+
 ;plot_image,(magrebinhigh*magrebinhighmask)<10>(-10),/nosq
-;stop
+stop
 
 ;---PLOT 4. - Butterfly avg signed B with flux imbalance butterfly------------>
 
@@ -799,17 +837,35 @@ mintim=min(timrebin)
 ;plot_image,magrebin[*,24:153]<3>(-3),/nosq,color=255,xticklen=.0001,yticklen=.0001,xtickname=strarr(10)+' ',ytickname=strarr(10)+' '
 ;utplot,timrebin-mintim,findgen(n_elements(timrebin)),mintim,/nodat,/noerase,/xsty,yran=[-90+24,89-24.],/ysty,ytit='Latitude'
 plot_image,magrebincrop[*,24:153]<3>(-3),/nosq,color=255,xticklen=.0001,yticklen=.0001,xtickname=strarr(10)+' ',ytickname=strarr(10)+' '
-utplot,timrebincrop-mintim,findgen(n_elements(timrebincrop)),mintim,/nodat,/noerase,/xsty,yran=[-90+24,89-24.],/ysty,ytit='Latitude'
-xyouts,.7,.87,'<B'+textoidl('_{SIGNED}')+'> [G]',/norm,color=255
-colorbar,range=[-3,3],pos=[.65,.92,.90,.95],color=255,chars=!p.charsize ;,/invert
+utplot,timrebincrop-mintim,findgen(n_elements(timrebincrop)),mintim,/nodat,/noerase,/xsty,yran=[-90+24,89-24.],/ysty,ytit='Latitude [deg.]'
+xyouts,.701,.869,'<B'+textoidl('_{SIGNED}')+'> [G]',/norm,color=255
+xyouts,.699,.871,'<B'+textoidl('_{SIGNED}')+'> [G]',/norm,color=255
+xyouts,.699,.869,'<B'+textoidl('_{SIGNED}')+'> [G]',/norm,color=255
+xyouts,.701,.871,'<B'+textoidl('_{SIGNED}')+'> [G]',/norm,color=255
+xyouts,.7,.87,'<B'+textoidl('_{SIGNED}')+'> [G]',/norm,color=0
+;colorbar,range=[-3,3],pos=[.65,.92,.90,.95],color=0,chars=!p.charsize ;,/invert
+color_table,[-3,3], [.649,.899],[.921,.951],color=255,chars=!p.charsize
+color_table,[-3,3], [.651,.901],[.919,.949],color=255,chars=!p.charsize
+color_table,[-3,3], [.651,.901],[.921,.951],color=255,chars=!p.charsize
+color_table,[-3,3], [.649,.899],[.919,.949],color=255,chars=!p.charsize
+color_table,[-3,3], [.65,.90],[.92,.95],color=0,chars=!p.charsize
 
 ;plot AR net flux
 !p.position=[.12,.1,.95,.525]
-plot_image,FLUXSIGNEDcrop<150000>(-150000),/nosq,/noerase,xticklen=.0001,yticklen=.0001,xtickname=strarr(10)+' ',ytickname=strarr(10)+' ',ytit='Latitude'
-utplot,XARRcrop-mintim,findgen(n_elements(timrebin)),mintim,/nodat,/noerase,/xsty,yran=minmax(yarr),/ysty
-xyouts,.66,.445,'Detection '+textoidl('\Phi_{NET}')+' 10!u20!n [MX]',/norm,color=0
-colorbar,range=[-15,15], DIVISIONS=0.5, $
-	pos=[.65,.495,.90,.525],color=0,chars=!p.charsize ;,/invert
+plot_image,FLUXSIGNEDcrop<150000>(-150000),/nosq,/noerase,xticklen=.0001,yticklen=.0001,xtickname=strarr(10)+' ',ytickname=strarr(10)+' '
+utplot,XARRcrop-mintim,findgen(n_elements(timrebin)),mintim,/nodat,/noerase,/xsty,yran=minmax(yarr),/ysty,ytit='Latitude [deg.]'
+xyouts,.661,.444,'Detection '+textoidl('\Phi_{NET}')+'['+textoidl('\times10^{20}')+' MX]',/norm,color=255
+xyouts,.659,.446,'Detection '+textoidl('\Phi_{NET}')+'['+textoidl('\times10^{20}')+' MX]',/norm,color=255
+xyouts,.659,.444,'Detection '+textoidl('\Phi_{NET}')+'['+textoidl('\times10^{20}')+' MX]',/norm,color=255
+xyouts,.661,.446,'Detection '+textoidl('\Phi_{NET}')+'['+textoidl('\times10^{20}')+' MX]',/norm,color=255
+xyouts,.66,.445,'Detection '+textoidl('\Phi_{NET}')+'['+textoidl('\times10^{20}')+' MX]',/norm,color=0
+;colorbar,range=[-15,15], DIVISIONS=0.5, $
+;	pos=[.65,.495,.90,.525],color=0,chars=!p.charsize ;,/invert
+color_table,[-15,15], [.651,.901],[.494,.524],color=255,chars=!p.charsize
+color_table,[-15,15], [.649,.899],[.496,.526],color=255,chars=!p.charsize
+color_table,[-15,15], [.649,.899],[.494,.524],color=255,chars=!p.charsize
+color_table,[-15,15], [.651,.901],[.496,.526],color=255,chars=!p.charsize
+color_table,[-15,15], [.65,.90],[.495,.525],color=0,chars=!p.charsize
 
 closeplotenv
 
@@ -825,28 +881,32 @@ mintim=min(xarr)
 xran=[anytim('1-jan-1997'),anytim('1-jan-2006')]-mintim
 
 ;Plot with hi and low lat bounds of AR butterfly diagram
-utplot,xarr-mintim,nfluxnethigh*1d16,mintim,ps=10,ytit=textoidl('\Sigma\Phi_{NET}')+' [Mx] Mid Lat.',pos=[.12,.666,.95,.95],yran=[-5d22,5d22],/ysty,xtit='',xtickname=strarr(10)+' ',xran=xran,/xsty
+utplot,xarr-mintim,nfluxnethigh*1d16,mintim,ps=10,ytit=textoidl('\Sigma\Phi_{NET}')+' [Mx] Mid Lat.',pos=[.12,.666,.95,.95],yran=[-4d22,4d22],/ysty,xtit='',xtickname=strarr(10)+' ',xran=xran,/xsty
 oplot,xarr-mintim,nfluxnethigh*1d16,color=!red,ps=10
 oplot,xarr-mintim,sfluxnethigh*1d16,color=!blue,ps=10
 hline,0,col=!gray
-utplot,xarr-mintim,nfluxnetlow*1d16,mintim,ps=10,ytit=textoidl('\Sigma\Phi_{NET}')+' [Mx] Low Lat.',pos=[.12,.383,.95,.666],/noerase,yran=[-5d22,5d22],/ysty,xtit='',xtickname=strarr(10)+' ',xran=xran,/xsty
+utplot,xarr-mintim,nfluxnetlow*1d16,mintim,ps=10,ytit=textoidl('\Sigma\Phi_{NET}')+' [Mx] Low Lat.',pos=[.12,.383,.95,.666],/noerase,yran=[-4d22,4d22],/ysty,xtit='',xtickname=strarr(10)+' ',xran=xran,/xsty
 oplot,xarr-mintim,nfluxnetlow*1d16,color=!red,ps=10
 oplot,xarr-mintim,sfluxnetlow*1d16,color=!blue,ps=10
 hline,0,col=!gray
 
-;Average B signed in some latitude range in flux butterfly diagram
-utplot,timrebincrop-mintim,nbsignedunipole,mintim,ps=10,pos=[.12,.1,.95,.383],ytit='<B'+textoidl('_{SIGNED}')+'> High Lat.',/noerase,yran=[-10,10],/ysty,xran=xran,/xsty
-oplot,timrebincrop-mintim,nbsignedunipole,color=!red,ps=10
-oplot,timrebincrop-mintim,sbsignedunipole,color=!blue,ps=10
-hline,0,col=!gray
-
 closeplotenv
+
+;;Average B signed in some latitude range in flux butterfly diagram
+;utplot,timrebincrop-mintim,nbsignedunipole,mintim,ps=10,pos=[.12,.1,.95,.383],ytit='<B'+textoidl('_{SIGNED}')+'> High Lat.',/noerase,yran=[-10,10],/ysty,xran=xran,/xsty
+;oplot,timrebincrop-mintim,nbsignedunipole,color=!red,ps=10
+;oplot,timrebincrop-mintim,sbsignedunipole,color=!blue,ps=10
+;hline,0,col=!gray
+
+;closeplotenv
 
 ;---END PLOT 5.--------------------------------------------------------------->
 
 
 skiptoplot4:
 
+
+restore,datapath+'hilowlat_flux_arrays',/ver
 stop
 
 ;PLOT 5.5 - Zonal polarity imbalances and netflux butterfly with extra panel-->
@@ -856,22 +916,47 @@ setcolors,/sys,/silent,/quiet
 mintim=min(xarr)
 xran=[anytim('1-jan-1997'),anytim('1-jan-2006')]-mintim
 
-;Plot with hi and low lat bounds of AR butterfly diagram
-;utplot,xarr-mintim,nfluxnethigh*1d16,mintim,ps=10,ytit=textoidl('\Sigma\Phi_{NET}')+' [Mx] Mid Lat.',pos=[.12,.666,.95,.95],yran=[-5d22,5d22],/ysty,xtit='',xtickname=strarr(10)+' ',xran=xran,/xsty
-;oplot,xarr-mintim,nfluxnethigh*1d16,color=!red,ps=10
-;oplot,xarr-mintim,sfluxnethigh*1d16,color=!blue,ps=10
+;nbsignedunipole,sbsignedunipole,nbsignedlow,sbsignedlow
+
+
+
+
+;NEED TO DETERMINE THE TOTAL FLUX IN EACH BAND AGAIN, SINCE IT APPEARS TO HAVE GONE MISSING
+blah=xarr
+
+;Use notes to determine flux in each pixel of bfly map and remake plots.q
+
+
+
+
+
+
+
+
+
+;Plot hi and low lat bounds of B-signed butterfly diagram
+utplot,xarr-mintim,blah*1d16/1d22,mintim,ps=10,ytit=textoidl('\Sigma\Phi_{NET}')+' ['+textoidl('\times10^{22}')+' Mx] High Lat.',pos=[.12,.495,.95,.95],yran=[-4,4],/ysty,xtit='',xtickname=strarr(10)+' ',xran=xran,/xsty
+oplot,xarr-mintim,blah*1d16/1d22,color=!red,ps=10
+oplot,xarr-mintim,blah*1d16/1d22,color=!blue,ps=10
+hline,0,col=!gray
+
+
+;Plot low lat bounds of AR butterfly diagram
+;utplot,xarr-mintim,nfluxnethigh*1d16/1d22,mintim,ps=10,ytit=textoidl('\Sigma\Phi_{NET}')+' ['+textoidl('\times10^{22}')+' Mx] Mid Lat.',pos=[.12,.495,.95,.95],yran=[-4,4],/ysty,xtit='',xtickname=strarr(10)+' ',xran=xran,/xsty
+;oplot,xarr-mintim,nfluxnethigh*1d16/1d22,color=!red,ps=10
+;oplot,xarr-mintim,sfluxnethigh*1d16/1d22,color=!blue,ps=10
 ;hline,0,col=!gray
 
-utplot,xarr-mintim,nfluxnetlow*1d16,mintim,ps=10,ytit=textoidl('\Sigma\Phi_{NET}')+' [Mx] Low Lat.',pos=[.12,.383,.95,.666],/noerase,yran=[-5d22,5d22],/ysty,xtit='',xtickname=strarr(10)+' ',xran=xran,/xsty
-oplot,xarr-mintim,nfluxnetlow*1d16,color=!red,ps=10
-oplot,xarr-mintim,sfluxnetlow*1d16,color=!blue,ps=10
+utplot,xarr-mintim,nfluxnetlow*1d16/1d22,mintim,ps=10,ytit=textoidl('\Sigma\Phi_{NET}')+' ['+textoidl('\times10^{22}')+' Mx] Low Lat.',pos=[.12,.1,.95,.495],/noerase,yran=[-4,4],/ysty,xtit='',xtickname=strarr(10)+' ',xran=xran,/xsty
+oplot,xarr-mintim,nfluxnetlow*1d16/1d22,color=!red,ps=10
+oplot,xarr-mintim,sfluxnetlow*1d16/1d22,color=!blue,ps=10
 hline,0,col=!gray
 
 ;Average B signed in some latitude range in flux butterfly diagram
-utplot,timrebincrop-mintim,nbsignedunipole,mintim,ps=10,pos=[.12,.1,.95,.383],ytit='<B'+textoidl('_{SIGNED}')+'> High Lat.',/noerase,yran=[-10,10],/ysty,xran=xran,/xsty
-oplot,timrebincrop-mintim,nbsignedunipole,color=!red,ps=10
-oplot,timrebincrop-mintim,sbsignedunipole,color=!blue,ps=10
-hline,0,col=!gray
+;utplot,timrebincrop-mintim,nbsignedunipole,mintim,ps=10,pos=[.12,.1,.95,.495],ytit='<B'+textoidl('_{SIGNED}')+'> High Lat.',/noerase,yran=[-10,10],/ysty,xran=xran,/xsty
+;oplot,timrebincrop-mintim,nbsignedunipole,color=!red,ps=10
+;oplot,timrebincrop-mintim,sbsignedunipole,color=!blue,ps=10
+;hline,0,col=!gray
 
 closeplotenv
 
@@ -881,7 +966,9 @@ skiptoplot6:
 
 ;---END PLOT 5.5--------------------------------------------------------------->
 
+
 ;skiptoplot4:
+
 
 ;PLOT 6. - plot polar fields and dipole sphere harmonics---------------------->
 
@@ -941,7 +1028,7 @@ stop
 ;---END PLOT 6.--------------------------------------------------------------->
 
 
-;PLOT 6.1 - plot polar fields and dipole sphere harmonics for r=2.5----------->
+;PLOT 6.1 - plot polar fields and dipole sphere harmonics for r=1.75----------->
 
 restore,datapath+'pfss_monthly_phiab_plot_r1_75.sav',/ver
 

@@ -14,6 +14,17 @@ abtimarr=anytim(date)
 v2coeff00=sphere_harmonic_coeff(a_lm, b_lm, mm=0., ll=0., rr=1, /use_phi,outa=a00, outb=b00)
 v2coeff01=sphere_harmonic_coeff(a_lm, b_lm, mm=0., ll=1., rr=1, /use_phi,outa=a01, outb=b01)
 v2coeff02=sphere_harmonic_coeff(a_lm, b_lm, mm=0., ll=2., rr=1, /use_phi,outa=a02, outb=b02)
+v2coeff03=sphere_harmonic_coeff(a_lm, b_lm, mm=0., ll=3., rr=1, /use_phi,outa=a03, outb=b03)
+v2coeff04=sphere_harmonic_coeff(a_lm, b_lm, mm=0., ll=4., rr=1, /use_phi,outa=a04, outb=b04)
+v2coeff05=sphere_harmonic_coeff(a_lm, b_lm, mm=0., ll=5., rr=1, /use_phi,outa=a05, outb=b05)
+
+v2coeff00r175=sphere_harmonic_coeff(a_lm, b_lm, mm=0., ll=0., rr=1.75, /use_phi,outa=a00, outb=b00)
+v2coeff01r175=sphere_harmonic_coeff(a_lm, b_lm, mm=0., ll=1., rr=1.75, /use_phi,outa=a01, outb=b01)
+v2coeff02r175=sphere_harmonic_coeff(a_lm, b_lm, mm=0., ll=2., rr=1.75, /use_phi,outa=a02, outb=b02)
+v2coeff03r175=sphere_harmonic_coeff(a_lm, b_lm, mm=0., ll=3., rr=1.75, /use_phi,outa=a03, outb=b03)
+v2coeff04r175=sphere_harmonic_coeff(a_lm, b_lm, mm=0., ll=4., rr=1.75, /use_phi,outa=a04, outb=b04)
+v2coeff05r175=sphere_harmonic_coeff(a_lm, b_lm, mm=0., ll=5., rr=1.75, /use_phi,outa=a05, outb=b05)
+
 
 yr=(abtimarr-anytim('01-jan-1996 00:00:00'))/3600./24./365.
 
