@@ -1,0 +1,682 @@
+\documentclass[namedreferences]{solarphysics}
+\usepackage[optionalrh]{spr-sola-addons} % For Solar Physics 
+%\usepackage{epsfig}          % For eps figures, old commands
+\usepackage{graphicx}        % For eps figures, newer & more powerfull
+%\usepackage{courier}         % Change the \texttt command to courier style
+\usepackage{natbib}         % For citations: redefine \cite commands
+\usepackage{amssymb}        % useful mathematical symbols
+\usepackage{color}           % For color text: \color command
+\usepackage{url}             % For breaking URLs easily trough lines
+\def\UrlFont{\sf}            % define the fonts for the URLs
+
+\usepackage{txfonts}
+\usepackage{verbatim}
+\usepackage{url}
+\usepackage{lscape}
+\usepackage{floatrow}
+
+% General definitions
+% please place your own definitions here and don't use \def but
+% \newcommand{}{} or 
+% \renewcommand{}{} if it is already defined in LaTeX
+
+\newcommand{\BibTeX}{\textsc{Bib}\TeX}
+\newcommand{\etal}{{\it et al.}}
+
+% Definitions for equations
+\renewcommand{\vec}[1]{{\mathbfit #1}}
+\newcommand{\deriv}[2]{\frac{{\mathrm d} #1}{{\mathrm d} #2}}
+\newcommand{\rmd}{ {\ \mathrm d} }
+\newcommand{\uvec}[1]{ \hat{\mathbf #1} }
+\newcommand{\pder}[2]{ \f{\partial #1}{\partial #2} }
+\newcommand{\grad}{ {\bf \nabla } }
+\newcommand{\curl}{ {\bf \nabla} \times}
+\newcommand{\vol}{ {\mathcal V} }
+\newcommand{\bndry}{ {\mathcal S} }
+\newcommand{\dv}{~{\mathrm d}^3 x}
+\newcommand{\da}{~{\mathrm d}^2 x}
+\newcommand{\dl}{~{\mathrm d} l}
+\newcommand{\dt}{~{\mathrm d}t}
+\newcommand{\intv}{\int_{\vol}^{}}
+\newcommand{\inta}{\int_{\bndry}^{}}
+\newcommand{\avec}{ \vec A}
+\newcommand{\ap}{ \vec A_p}
+
+\newcommand{\bb}{\vec B}
+\newcommand{\jj}{ \vec j}
+\newcommand{\rr}{ \vec r}
+\newcommand{\xx}{ \vec x}
+
+% Custom commands
+\newcommand{\degr}{\ensuremath{^\circ}}
+
+% Definitions for the journal names
+\newcommand{\adv}{    {\it Adv. Space Res.}} 
+\newcommand{\annG}{   {\it Ann. Geophys.}} 
+\newcommand{\aap}{    {\it Astron. Astrophys.}}
+\newcommand{\aaps}{   {\it Astron. Astrophys. Suppl.}}
+\newcommand{\aapr}{   {\it Astron. Astrophys. Rev.}}
+\newcommand{\ag}{     {\it Ann. Geophys.}}
+\newcommand{\aj}{     {\it Astron. J.}} 
+\newcommand{\apj}{    {\it Astrophys. J.}}
+\newcommand{\apjl}{   {\it Astrophys. J. Lett.}}
+\newcommand{\apss}{   {\it Astrophys. Space Sci.}} 
+\newcommand{\cjaa}{   {\it Chin. J. Astron. Astrophys.}} 
+\newcommand{\gafd}{   {\it Geophys. Astrophys. Fluid Dyn.}}
+\newcommand{\grl}{    {\it Geophys. Res. Lett.}}
+\newcommand{\ijga}{   {\it Int. J. Geomagn. Aeron.}}
+\newcommand{\jastp}{  {\it J. Atmos. Solar-Terr. Phys.}} 
+\newcommand{\jgr}{    {\it J. Geophys. Res.}}
+\newcommand{\mnras}{  {\it Mon. Not. Roy. Astron. Soc.}}
+\newcommand{\nat}{    {\it Nature}}
+\newcommand{\pasp}{   {\it Pub. Astron. Soc. Pac.}}
+\newcommand{\pasj}{   {\it Pub. Astron. Soc. Japan}}
+\newcommand{\pre}{    {\it Phys. Rev. E}}
+\newcommand{\solphys}{{\it Solar Phys.}}
+\newcommand{\sovast}{ {\it Soviet  Astron.}} 
+\newcommand{\ssr}{    {\it Space Sci. Rev.}} 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\begin{article}
+
+\begin{opening}
+
+\title{Solar Active Regions and the Global Magnetic Cycle}
+
+\author{P.\,A.~\surname{Higgins}$^{1,2}$\sep
+        D.\,S.~\surname{Bloomfield}$^{1}$\sep
+        P.\,T.~\surname{Gallagher}$^{1}$      
+       }
+\runningauthor{Higgins et al.}
+\runningtitle{Solar Active Regions and the Global Magnetic Cycle}
+
+   \institute{$^{1}$ Astrophysics Research Group, School of Physics, Trinity College Dublin, Dublin 2, Ireland
+                     email: \url{pohuigin@gmail.com}\\ 
+              $^{2}$ Lockheed Martin Solar and Astrophysics Laboratory, Palo Alto, CA, USA
+             }
+
+\begin{abstract}
+Currently, the most successful model of the magnetic solar cycle is the Babcock-Leighton-Mosher model, which is able to qualitatively reproduce the global magnetic field over time by simulating the surface transport of active region (AR) magnetic fields. The model relies on empirical knowledge of AR properties, surface flows (including Mosher's meridional flow), and the response of surface magnetic fields to those flows. To better constrain the model, accurate measurements of solar magnetic fields over the solar cycle, such as the statistical properties of ARs, are required. This work characterises the long-term patterns of AR emergence and evolution that are responsible for the progression of the observed magnetic  cycle. The SolarMonitor Active Region Tracker (SMART) is used to automatically detect and characterise surface magnetic features using 15\,years of \emph{SOHO}/MDI line-of-sight magnetograms covering solar cycle 23. The heliographic location, area, magnetic flux, and flux imbalance of detected features are measured and compared to the results of a global magnetic flux assimilation and potential field spherical harmonic decomposition model. Several novel results are highlighted in this work. 
+1) The spatial extent of AR emergence is tracked over time. The AR equatorward-edge drift rate is measured; the northern hemisphere edge is found to propagate faster than the southern edge by around 1\degr\,yr$^{-1}$.
+2) Three periods of increased average AR flux and area appear to be largely responsible for the global polar magnetic field reversal. The increase in average AR properties is likely due to the observed excess of large regions near solar maximum. 
+%Surface flux transport (driven by the differential and meridional flows and supergranular dispersal) preferentially drag one polarity of flux from ARs poleward, as explained by the Babcock-Leighton-Moser model. 
+3) For the first time, the magnetic properties of automatically detected ARs are directly quantitatively compared to the global configuration of the solar magnetic field. Observed latitudinal bands of imbalanced flux (both that dispersed over the surface and that contained in detected ARs) determine the magnetic structure of the corona below $1.75R_{\astrosun}$ to a great extent. 
+We conclude that these observations are consistent with the Babcock-Leighton-Mosher model and furthermore, they allow the properties of the magnetic flux injected into simulations as well as the mechanisms that transport the flux to be constrained.
+%an excess of ARs with large flux is found in the ``maximum" phase (2000\,--\,2003) around solar maximum
+%We observe the following hemispheric asymmetries through the solar cycle using measurements of magnetic flux: i) the double peak during cycle 23 is only seen in the southern hemisphere; ii) the equatorward migration of AR emergence is significantly faster in the northern hemisphere; iii) ARs emerge for longer and more flux emerges overall in the southern hemisphere.
+%Distributions of AR flux and area are scale-free, which indicates that the solar dynamo may operate in a self-organised critical state.
+%Large-scale flux imbalance in the AR latitudes is opposite but similar in magnitude to that at higher latitudes. This is the first quantitative measurement connecting AR flux with diffuse high-latitude flux. 
+%Considering the global magnetic field, similar large-scale features are observed in coronal images and PFSS extrapolations.
+%By investigating the spherical harmonic coefficients obtained from the PFSS model, we find that although high-order moments ($l$$=$$[2,3,4,5]$, $m$$=$$0$) become dominant at the solar surface during certain times in the solar cycle, the large-scale magnetic field is shown to become less multipolar with height, tending toward the dipole moment.
+%To investigate how the magnetic properties of ARs statistically change over the solar cycle and establish a quantitative connection between their properties and the global magnetic field configuration of the Sun. 
+
+
+%\verb+SOLA_keyword_list.txt+.  
+\end{abstract}
+%\keywords{Sun: activity - Sun: magnetic field - Sun: photosphere - Sun: sunspots - Sun: surface magnetism - Sun: dynamo -  Sun: evolution}
+\keywords{Solar Cycle, Observations; Active Regions, Magnetic Fields; Magnetic fields, Photosphere; Sunspots, Statistics}
+\end{opening}
+%-------------------------------------------------
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+
+%P-intro Paragraph
+Babcock-Leighton-Mosher (BLM) model \citep{Babcock:1961,Leighton:1964,Mosher:1977} explains the global solar magnetic dipole reversal by considering the properties of emergent active regions (ARs) and the velocity field that characterises the solar surface. Simulations built on these principles can approximate the evolution of the large-scale solar magnetic field \citep{Leighton:1964,Sheeley:1985,Devore:1986,Wang:1989}. For instance, a significant number of studies have specifically focused on predicting the evolution of the polar magnetic fields using this model and injecting simulated or observed ARs \citep{Devore:1987,schussler:2006,Wang:2009,Schrijver:2008b,Upton:2013}. Since the BLM model must be seeded using ARs (simulated or observed), knowledge of their properties is essential. Despite this, there have been few investigations determining the statistical magnetic properties of ARs at different phases of the solar cycle \citep{meunier:2003,zharkov:2006}, knowledge of which would be necessary to make the BLM model both self consistent and predictive. Also, it is known that ARs are important in determining the global magnetic field configuration\citep{wang:2003a, Schrijver:2003, schussler:2006}, but the authors are not aware of work directly comparing the properties of individually detected ARs to the global magnetic field. By studying AR magnetic fields and the diffuse fields surrounding them, we diagnose both the subsurface dynamo that forms ARs and determine how they evolve, once emerged, to affect the large-scale solar magnetic field configuration. 
+%using automated feature detection over a complete solar cycle, 
+%using a global assimilation and spherical harmonic decomposition model.
+
+%P-what are sunspots/ARs/MFs -%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+There is significant diversity in the properties of localised magnetic features observed over the solar surface. The term AR is used here to denote an entire localised structure, composed of plage and/or sunspots, while the term ``magnetic features" (MFs) is used in this work to denote any regions of strong magnetic field, including ARs. ARs usually emerge as compact, magnetically bipolar features, and can range in size and flux by orders of magnitude both cumulatively \citep{meunier:2003} and at a given point in time   \citep{Parnell:2009}. The statistical properties of observed ARs at a given point in time provide limited insight into the mechanisms responsible for their emergence, since the properties of emergent ARs may change over the solar cycle \citep{meunier:2003,Lefevre:2011}.
+
+%Sunspots are localised regions of strong magnetic field that appear darker and cooler than the surrounding photospheric continuum.
+%Sunspots generally occur in clusters called sunspot groups and may be surrounded by regions of dispersing magnetic fields called ``plage".
+
+%P-The solar cycle -%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+The solar cycle is conventionally characterised by the time-dependent statistical properties of sunspot groups (SSGs), which exhibit roughly 11- and 22-year periodicity. The number of SSGs present \citep[sunspot number][]{Schwabe:1844,Wolf:1861}, the latitudinal dependence of SSGs \citep[Sp$\ddot{\mbox{o}}$rer's law][]{Maunder:1904}, and the inclination of the SSG bipole axis to the equator \cite[Joy's Law][]{Hale:1919}, which decreases with latitude \citep{Howard:1991}, exhibit an 11-year periodicity. Meanwhile, the magnetic polarity of leading and following sunspot groups \citep[Hale's law;][]{Hale:1919} follows a 22-year periodicity. Additionally, sunspot groups appear to exhibit a similar size distribution over a solar cycle\citep{harvey:1993}, but may show an excess of large regions or a depletion of small regions at cycle maximum \citep{tang:1984,Hathaway:2010b,Lefevre:2011,Kilcik:2011,deToma:2013}. The statistical properties of sunspot groups over time are well studied using white-light and continuum images, but the cycle dependence of detected AR size, flux, and net flux using magnetogram data have not been extensively studied \citep{meunier:2003,zharkov:2006}. 
+
+%P-how ARs drive the magnetic solar cycle -%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+The evolution of ARs is modulated by their properties over the solar cycle and drives the magnetic polarity reversal of the global magnetic field. 
+ARs evolve due to the turbulent motions and large-scale flows of the near-surface solar plasma: differential axial-rotation of the Sun stretches features longitudinally \citep{Babcock:1961}; supergranule motions result in magnetic field dispersal \citep{Leighton:1964}, submergence, and cancellation; the meridional flow preferentially carries diffuse magnetic flux to the poles \cite{Mosher:1977}. The changing properties of ARs over the solar cycle work in concert with these phenomena to drive the reversal of the polar magnetic fields around the peak of each solar cycle. While this is well known, the quantitative result of these effects on the magnetic properties of ARs has not been well studied.
+
+%P-the magnetic solar cycle/ARs determine the global field structure -%%%%%%%%%%%%%%%%%
+The properties of low-latitude MFs (especially ARs) on the solar surface must be taken into account to estimate the properties of the magnetic field of the Sun at large radii \citep[e.g., the interplanetary magnetic field;]{Schatten:1969,wang:2003a, Schrijver:2003, schussler:2006}. As the global field configuration strongly affects the shape of the heliospheric field, the space weather environment at Earth is partially determined by solar MFs. Generally, the global field is multipolar and we can describe its 3D geometry using the superposition of spherical harmonics from surface magnetic field measurements \citep{stenflo:1986, stenflo:1988, knaack:2005,mordvinov:2007,Mackay:2012,DeRosa:2012}. Properties of individual ARs (such as flux imbalance) locally affect the solar magnetic field structure, while large-scale properties (such as hemispheric net flux imbalance) affect the global field.
+Large scale net flux imbalances at high latitudes have been observed as a result of the poleward transport of decayed AR flux \citep{harvey:1992}. The imbalances are shown to be opposite in each hemisphere and to vary over the solar cycle \citep{Choudhary:2002}. A phase relation between imbalances at high and low (AR) latitudes has also been observed \citet{zharkov:2006,Zharkov:2008}.
+Here, we seek to better understand the evolution of the global solar magnetic field in the context of a full 11-year activity cycle (i.e., half a magnetic cycle) by characterizing the time-latitude distributions of MF properties.
+
+%The latitudinal distribution of net flux over time show that while the AR belt progresses from high to low latitudes, unipolar flux is observed to be transported poleward \citep{harvey:1992}. The large-scale distribution of excess unipolar flux results in a hemispheric magnetic polarity imbalance that is a function of the solar cycle and switches sign between cycles \citep{Choudhary:2002}. A phase relation has been observed between the large-scale polarity imbalance at high and low latitudes
+%\citet{Choudhary:2002} investigated large-scale flux imbalance, finding that hemispheric flux imbalance is a function of the solar cycle and switches sign between cycles. 
+%\citet{zharkov:2006} statistically studied the excess flux of sunspot groups  for a portion of solar cycle 23, finding opposite imbalances in each hemisphere that reverse at the cycle minimum. \citet{Zharkov:2008} state that a phase relation exists between AR flux imbalance and the background high-latitude magnetic field. 
+
+%P-overview of the paper -%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+In this paper, that includes work presented in \citet{Higgins:thesis}, we analyse the properties of detected ARs over solar cycle 23 and compare them to the global configuration of the solar magnetic field. %(Section \ref{subsect_imbharm}). 
+We establish a clear connection between detected MFs in the AR belt, the excess of diffuse high-latitude net flux, and the global magnetic field structure that is determined by the dominance of certain spherical harmonics. To the authors' knowledge, the complete life cycle of surface magnetic flux has not previously been quantitatively studied using both automated feature detection and global field measurements.  
+In Section~\ref{obs_and_meth}, we discuss the methods used to construct our data set including the automatic detection algorithm, data reduction processes and the assimilation and spherical harmonic decomposition model used. Our results are presented and discussed in Section~\ref{results}, and concluding statements are made in Section~\ref{discussion}.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%                                                 
+\section{Observations and Methods}\label{obs_and_meth}
+
+%Data/Intro
+In the following subsections the methods used to perform this study are described. First, the source data and automatic detection and characterisation methods are discussed (Section \ref{sub:autofeat}). Then, a data reduction process of binning ARs and binning raw magnetogram observations in both time and latitude to generate butterfly maps is explained (Section \ref{sub:magbutt}). Finally, the process of obtaining global magnetic spherical harmonic coefficients is listed (Section \ref{sub:sphharm}). The software used to perform the data analysis presented here is available through the ``GitHub" distributed version control system\footnote{The software repository is available for download here: \url{https://github.com/pohuigin/Global-Magnetic-Field-Study} and is written using SSWIDL (\url{http://www.lmsal.com/solarsoft}).}.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Automatic Feature Extraction}\label{sub:autofeat}
+
+%SMART
+A database of daily SolarMonitor Active Region Tracker \citep[SMART;][]{higgins:2011} detections from 1996 to 2011 is analyzed in this paper. SMART uses two consecutive \emph{Solar and Heliospheric Observatory} (\emph{SOHO})/Michelson Doppler Interferometer \citep[MDI;][]{Scherrer:1995} full-disk, line-of-sight (LOS), level 1.8 magnetograms to make a single set of detections. These two magnetograms, nominally recorded 96\,minutes apart, are used to remove transient features and extract time-dependent properties of persistent features. SMART characterises detected ARs using many magnetic properties\footnote{For a full list, see Tables\,1 and 2 in \cite{higgins:2011}}. The feature boundaries and magnetic property data set used in this work is available online\footnote{Detection mask FITS files and a catalog of feature properties is available from this page: \url{http://pohuigin.wordpress.com/2013/08/30/smart-v1-detection-masks-and-magnetic-property-calalog-release/}}
+
+Several AR properties are investigated here. The area, $A$, of a feature indicates its magnetic extent and is determined by summing the LOS cosine-corrected pixel area (i.e., area on a spherical surface) enclosed by the SMART AR detection boundary. 
+AR total magnetic flux is the amount of unsigned magnetic field passing through the solar surface and is determined using,
+% and can be used as a proxy for the magnetic energy in the current-free fields of a detected feature and is determined using,
+\begin{equation}\label{eqn:flux}
+\Phi_{\mathrm{TOT}}=\int{|{B_{\mathrm{LOS}}}|\cdot d{A}} \mbox{\,,}
+\end{equation}
+where ${B}$ is the cosine-corrected LOS magnetic field strength (i.e., assuming radial fields), ${A}$ is the area vector, and the integral is performed over the surface enclosed by the SMART detection boundary. The imbalance of negative and positive flux passing into and out of the solar surface, net flux, is given by the sum of signed positive and negative flux,
+\begin{equation}
+\Phi_{\mathrm{NET}}=\Phi_{+}+\Phi_{-}=\int_{A_+}{{B_{+}}\cdot d{A}} + \int_{A_-}{B_{-}\cdot dA} \mbox{\,,}
+%\Phi_{\mathrm{NET}}=\Phi_{+}+\Phi_{-}=\int_{A_+}{\mathbf{B_{+}}\cdot d\mathbf{A}} + \int_{A_-}{\mathbf{B_{-}}\cdot d\mathbf{A}} \mbox{\,,}
+\end{equation}
+where ${B_{+}}$ is positive magnetic field and ${B_{-}}$ is negative magnetic field.
+The imbalance of signed flux can be expressed as a fraction,
+%EQN Flux imbalance
+\begin{equation}
+\Phi_{\mathrm{IMB}} = \frac{\Phi_{\mathrm{NET}}}{\Phi_{\mathrm{TOT}}} \mbox{\ .}
+\end{equation}
+A $\Phi_{\mathrm{IMB}}$ of zero is a region with equal magnitudes of $\Phi_{+}$ and $\Phi_{-}$, while a $\Phi_{\mathrm{IMB}}$ of positive (negative) unity is a region of completely positive (negative) unipolar flux. %We define unipolar and multipolar regions as those exhibiting $|\Phi_{\mathrm{IMB}}| \geq 0.9$ and $< 0.9$, respectively. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Magnetic Butterfly Maps}\label{sub:magbutt}
+
+%SMART TIME SERIES AND BUTTERFLY MAPS
+To analyse long-timescale spatio-temporal patterns of AR emergence, we construct butterfly maps and time series from the reduced data. The properties of ARs between $-60^\circ$ and $+60^\circ$ longitude are considered. Time series of summed area, $\Phi_{\mathrm{TOT}}$, $\Phi_{\mathrm{NET}}$ and $\Phi_{\mathrm{IMB}}$ for all ARs within the longitude limits is calculated and averaged in bins of 27\,days (i.e., about one solar rotation at the active latitudes). This process averages the measurements longitudinally. 
+For the butterfly maps, the method is repeated in bins of one degree latitude. Separate $\Phi_{\mathrm{TOT}}$ maps are created for regions above $10^{22}$\,Mx, $5\times10^{22}$\,Mx, and $10^{23}$\,Mx. Patterns in the time and latitude distribution of AR properties are then analysed using these maps.
+
+%??EDGE FINDING FOR BUTTERFLY MAPS??
+
+%CREATION OF MAGNETIC BUTTERFLY DIAGRAM
+While SMART is well-suited to characterizing the strong AR magnetic fields, it is not designed to detect diffuse features. The weak fields that compose the quiet Sun are not readily apparent in individual magnetograms, partially due to the (nominally) 20\,G MDI noise level. To obtain a more complete picture of the global magnetic field configuration, a magnetic butterfly diagram is created using raw MDI data with the same sampling as the SMART butterfly map (i.e., $1^\circ$ in latitude and 27\,days in time). Each slice of this map is created by averaging over all of the 96 minute magnetograms available on a given day. Only 5-minute averaged data are used, and each is differentially rotated to 12:00\,UT. After remapping the averaged magnetogram to a regular grid of $180\times180$ longitude-latitude points, pixels between $-60^{\circ}$ to $60^{\circ}$ longitude are averaged. This results in a profile of signed $\langle {B} \rangle$ in latitude for a given day. The process is repeated for the entire solar cycle, stacking the slices in time. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Spherical Harmonic Decomposition}\label{sub:sphharm}
+
+Assuming a current free magnetic field ($\nabla\times\mathbf{B}=0$), we can define a scalar potential such that,
+\begin{equation}
+\mathbf{B}(r,\theta,\phi^*)=-\nabla \Psi \mbox{\,,}
+\end{equation}
+where $r$ is in solar radii from Sun center, $\phi^*$ is colatitude ($\phi^*=90-\phi$, where $\phi$ is latitude), $\theta$ is longitude and $\Psi$ is the scalar potential field 
+%\footnote{$\Phi$ is normally used, but we wish to differentiate this from magnetic flux, defined in Equation\,\ref{eqn:flux}} 
+that satisfies Laplace's equation ($\nabla^2 \Psi = 0$). Thus, $\Psi$ can be expressed in terms of spherical harmonics,
+\begin{equation}\label{eqn_harm_coeff}
+\Psi(r,\theta,\phi^*)=\sum_{l,m}C_{l}^{m}(r)Y_{l}^{m}(\theta,\phi^*) \mbox{\,,}
+\end{equation}
+where $l$ and $m$ are the number of vertical and horizontal nodes in a given mode, $Y_{l}^{m}(\theta,\phi^*)$ are the spherical harmonics, and $C_{l}^{m}(r)$ are the harmonic coefficients. We can use $C_{l}^{m}(r)$ to determine the importance of various harmonic modes (e.g., dipolar, quadrupolar, etc) as a function of radial distance from the solar surface. The harmonic coefficents are defined as,
+\begin{equation}\label{eqn:harmcoeff}
+C_{l}^{m}(r) = A^m_l r^l + B^m_l r^{-(l+1)} \mbox{\,,}
+\end{equation}
+where $A$ and $B$ are obtained directly from the PFSS modelling package described below. 
+
+%PFSS Schrijver:2001,?? why did I reference this for pfss???
+The SolarSoftware\footnote{See \url{http://www.lmsal.com/solarsoft}} \citep[SSW;][]{Freeland:1998} PFSS package\footnote{See \url{http://www.lmsal.com/~derosa/pfsspack}} \citep{Schrijver:2003} models the global structure of the solar magnetic field using the above definitions. Here we use Version 2 of the package\footnote{Version 2 was released January 2013. See \url{http://www.lmsal.com/forecast/surfflux-model-v2/}} which results in a more faithful representation of the solar magnetic field than Version 1 (see Appendix A).
+The solar surface boundary condition of the model is obtained from LOS magnetograms for the Earth-facing side of the Sun. To approximate the conditions on the far side, the magnetograms are input to an assimilation model that simulates solar-surface evolution to reconstruct the magnetic field \citep{Schrijver:2003}. The source surface radius (i.e., the distance at which fields become radial) is defined to be $2.5R_{\odot}$. The first few azimuthally symmetric ($m=0$) spherical harmonic coefficients are extracted from the PFSS model and combined into time series with 27-day sampling. These time series are then compared to the time series obtained using AR detections and butterfly maps.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Results and Discussion}\label{results}
+
+
+In the following section we characterize aspects of the solar cycle, including aspects of evolution in time, latitude and the properties of ARs. A connection is then established between the magnetic configuration of ARs at the photosphere and the global structure above the solar surface. First, the properties of ARs over long-time scales are discussed in Section \ref{subsect_arcycle}. Then, in Section \ref{subsect_imbharm} a connection is drawn between high-latitude polarity imbalance, flux imbalances in ARs at lower latitudes and the global configuration of the solar magnetic field.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%SECTION MAGNETIC ACTIVE REGION CYCLE
+
+
+%PLOT 0. AR CYCLE TIME SERIES
+\begin{figure*}[!t]
+ 
+\includegraphics[width=12cm,angle=0]{images/20110330/plot_0_cycletseries_vs_fluxbflydiag.eps}
+\caption{\emph{Top}: A comparison of the summed $\Phi_{\mathrm{TOT}}$ of detected magnetic features observed on disk using 27-day bins (black line) with that in the northern ($\Phi_{\mathrm{TOT,N}}$; red crosses) and southern ($\Phi_{\mathrm{TOT,S}}$; blue diamonds) hemispheres. The SIDC sunspot number (SSN) is over-plotted in gray. \emph{Bottom}: $\Phi_{\mathrm{TOT}}$ binned in latitude ($1^{\circ}$) and time (27\,days). The vertical white bands during 1998 represent missing data and indicate the period when \emph{SOHO} was not taking data.}\label{plot_0_cycletseries_vs_fluxbflydiag}
+\end{figure*}
+
+\subsection{The Magnetic Active Region Cycle}\label{subsect_arcycle}
+
+The solar cycle can be characterized by the properties of MFs present over time. Sunspots are composed of strong magnetic fields, so it is natural to compare the amount of magnetic field on the Sun to the traditional sunspot cycle. The upper panel of Figure \ref{plot_0_cycletseries_vs_fluxbflydiag} shows a comparison between the Solar Influences Data Center (SIDC) sunspot number\footnote{To obtain SIDC sunspot numbers, see \url{http://sidc.oma.be/sunspot-data/dailyssn.php}} (SSN; gray line) to the total magnetic flux $\Phi_{\mathrm{TOT}}$ (black line) as measured from MF detections. Features in the $\Phi_{\mathrm{TOT}}$ curve on the scale of $\sim$2\,years are comparable to those in the sunspot number. A double peak is observed in both curves at $\sim$3 and $\sim$5\,years after the preceding solar minimum (i.e., $\sim$1997). The first peak in the sunspot data is larger than the following peak, in contrast to $\Phi_{\mathrm{TOT}}$ that exhibits a larger second peak. Sunspot number hemispheric asymmetry has been studied over decades \citep{Li:2001a,Temmer:2002} and it has been established that asymmetries are persistent over multiple solar cycles \citep{Temmer:2006}. Also contained in Figure\,\ref{plot_0_cycletseries_vs_fluxbflydiag} are the total flux in the northern hemisphere ($\Phi_\mathrm{TOT,N}$) and that in the southern hemisphere ($\Phi_\mathrm{TOT,S}$). These two curves are markedly different: $\Phi_\mathrm{TOT,N}$ appears to increase from solar minimum with steadily increasing bursts of activity (on the scale of $\sim$6 months in duration) up to solar maximum and finally dies off $\sim$9\,years after solar minimum; $\Phi_\mathrm{TOT,S}$ exhibits the double-peak structure that is characteristic of the sunspot number and continues producing AR flux for more than a year after the northern hemisphere stops. 
+
+%This is also shown in automated sunspot detection data \citep{Watson:2011}.
+
+Double-peaked solar cycles are common \citep{gnevyshev:1977} and the fact that only one hemisphere exhibits the structure indicates that either the mechanism causing flux emergence or the distribution of flux tubes at the base of the convection zone is hemispherically asymmetric. 
+% \citep{dynamo reviews}?? need reference for assymetric flux?
+\citet{wang:2003a} report that most cycles exhibit more than one peak, and that this is caused by an underlying stochastic process.
+
+
+%PLOT 1. DEEPER ANALYSIS OF FLUX DIAGRAM (EQUATORWARD DRIFTS & LAT DIST OF SIZES)
+\begin{figure*}[!t]
+ 
+\includegraphics[width=12cm,angle=0]{images/20110330/plot_1_analyze_fluxbflydiag.eps}
+\caption{\emph{Top}: Flux-weighted latitude centroid for the north and south hemispheres (gray lines), high and low latitude edges (crosses) of detection masks, edges of $10^{22}$\,Mx mask (diamonds), and linear fits to centroids and edges (black lines). \emph{Bottom}: Masks of detected centroids for features of greater than $2.3\times10^{20}$\,Mx, $10^{22}$\,Mx, $5\times10^{22}$\,Mx, and $10^{23}$\,Mx denoted in color from white gray to black, respectively.}\label{plot_1_analyze_fluxbflydiag}
+\end{figure*}
+
+The dependence on latitude and time of magnetic feature emergence can be established using the $\Phi_{\mathrm{TOT}}$ butterfly diagram in the bottom panel of Figure \ref{plot_0_cycletseries_vs_fluxbflydiag}. First, we characterize the equatorward progression of MF emergence for the northern and southern hemispheres. The hemispheric latitude-flux centroid is measured by weighting latitude bins using the average amount of MF flux present over each time bin (grey solid lines in top panel of Figure \ref{plot_1_analyze_fluxbflydiag}). 
+
+Further processing is required to extract information about the poleward and equatorward edges of MF emergence from this map. First, missing data is filled using bilinear interpolation in time. We define the region containing cycle 23 as the largest contiguous contour in the AR detection flux map, using a threshold of $2.3\times10^{20}$\,Mx (black line contour in bottom panel of Figure\,\ref{plot_1_analyze_fluxbflydiag}). Pixels outside this region are removed. The poleward and equatorward edges are determined by taking the minimum and maximum pixels of this contour at each time bin. Lines are then separately fit to these edges. 
+The line fits are of the form,
+\begin{equation}
+\phi(t)=\phi_{0}+t\,\dot{\phi}(t) \mbox{\,,}
+\end{equation}
+where $\phi$ is latitude, $\dot{\phi}$ is the slope or rate-of-change of $\phi$, and $\phi_{0}$ is the ``vertical-intercept" or the latitude at which the best-fit line crosses the vertical axis at $t=0$, which is defined as 1\,January\,1979 at 00:00\,UT. %This process is repeated for maps including detections above $10^{22}$, $5\times10^{22}$, and $10^{23}$\,Mx. % !!! NOT SHOWN IN PAPER !!!
+ The top panel of Figure\,\ref{plot_1_analyze_fluxbflydiag} shows the best-fit lines to the detected equatorward edges (symbols and black solid lines).
+%, while the bottom panel shows contours in black at $>$$2.3\times10^{20}$\,Mx for the flux map.  
+
+\begin{table}[!t]
+\caption[Linear fits to AR emergence space-time extent.]{Linear fits to equatorward edges ($>$0\,Mx contour) and latitude centroids of hemispheric flux in AR detections, with $t=0$ defined as 1\,January\,1979 at 00:00\,UT. Variables $\dot{\phi}$ and $\phi_{0}$ have units of degrees\,year$^{-1}$ and degrees, respectively. The reduced $\chi^2$ goodness of fit is given in the bottom row.}
+\label{table_1_line_fits}
+\centerline{\begin{tabular}{ccccc}
+\hline\hline
+& \multicolumn{2}{c}{$\Phi$ Centroid} & \multicolumn{2}{c}{Equatorward Edge} \\
+\cline{2-5}
+& North & South & North & South \\
+\hline
+%Slope $\dot{\phi}(t)$ [\degr\ year$^{-1}$] & $ -1.61 \pm 0.02 $ & $ \ 1.65 \pm 0.01 $ & $ -5.88 \pm 0.10 $ & $ \ 5.08 \pm 0.09 $ \\
+$\dot{\phi}(t)$ [\degr\ yr$^{-1}$] & $ -1.61 \pm 0.02 $ & $ 1.65 \pm 0.01 $ & $ -5.9 \pm 0.1 $ & $ 5.1 \pm 0.1 $ \\
+%Intercept $\phi_{0}$ [\degr] & $ 52.62 \pm 0.40 $ & $ -54.48 \pm 0.31 $ & $ 125.88 \pm 2.04 $ & $ -113.06 \pm 1.73 $ \\
+$\phi_{0}$ [\degr] & $ 52.6 \pm 0.4 $ & $ -54.5 \pm 0.3 $ & $ 126 \pm 2 $ & $ -113 \pm 2 $ \\
+$\chi^2$ & 27.4 & 4.4 & 22.4 & 11.5 \\
+\hline
+\end{tabular}}
+\end{table}
+
+The northern and southern hemispheric $\Phi$ centroids progress at $-1.61\pm0.02$ and $1.65\pm 0.01$\degr\,yr$^{-1}$, respectively.
+%The centroid measurement drift speeds measured here are approximately ten-fold that presented in \citet{zhang:2010}.
+\citet{zhang:2010} measure the equatorward drift speed of the flux-weighted centroid of the combined set of AR detections in the northern and southern hemispheres, obtaining a value of 1.83\degr\,yr$^{-1}$. \citet{Hathaway:2003} determine the drift speed at solar max for a series of cycles finding values at solar maximum of between $\sim$1.5\,-\,2.5\degr\,yr$^{-1}$. \citet{Li:2001b} measure an average drift speed for a single cycle of 1.6\degr\,yr$^{-1}$ and state that statistically there is no significant difference between the northern and southern hemispheres. They also report that a second-order polynomial provides the best fit to the data.
+%Our centroid fits have reduced $\chi^2$ values significantly larger than unity and those of the equatorward edge fits. This either indicates that a linear fit is not the function best suited to describe these observations, or that the overall spread of centroid positions is too high to provide a reliable fit. 
+
+We find that the equatorward edges of AR emergence in each hemisphere progress toward the equator more rapidly than the flux-weighted latitude centroid. The northern and southern hemisphere equatorward edges progress at $-5.9\pm0.1$ and $5.1\pm0.1$\degr\,yr$^{-1}$, respectively\footnote{\citet{jin:2012} tracks the progression of the North and South centroids of the average AR flux profile subtracted from the yearly AR flux profiles and finds an equatorward progression of 2.5\degr\,yr$^{-1}$ which is faster than other centroid progression values, but does not appear to equate to an edge progression measurement.}. These are the most accurate measurements of the equatorward edge of AR emergence to date, as far as the authors are aware.
+
+The equatorward edges of AR emergence are physically more interesting than the centroid, as they have been shown to be co-spatial and co-temporal with observations of the surface shear torsional oscillation observations \citep{Howe:2011}, which precedes the onset of AR emergence by about 10\degr\ \citep{Haber:2002}. Thus, if the torsional oscillation destabilises flux ropes at the tachocline, causing them to rise and emerge as ARs, then it must take $\ge$1.8\,yr for this to occur, assuming that the AR emergence front is moving equatorward at $\sim$5.5\degr\,yr$^{-1}$. Since the equatorward edges of AR emergence propagate in the northern and southern hemispheres with significantly different speeds (i.e., $\sim$0.8\degr\,yr$^{-1}$, or $\sim$15\%, difference), this may indicate that either the torsional oscillation propagates at different rates in each hemisphere or that the subsurface flux in each hemisphere reacts differently to the altered plasma flow speeds.
+Also, upon visual inspection of both the top and bottom panels of Figure\,\ref{plot_1_analyze_fluxbflydiag}, $\sim$1\,year oscillations in the latitude of the flux centroids might be present, but a much longer time scale study is required to determine if they are real or significant. 
+%\citet{harvey:1993} detect the poleward boundaries of active region detections.
+
+It is clear from the bottom panel of Figure\,\ref{plot_1_analyze_fluxbflydiag} that the ARs of largest flux are more confined in latitude. Regions below $10^{22}$\,Mx emerge at latitudes up to $40^\circ$ from the equator, while those above  $10^{22}$\,Mx,  $5\times10^{22}$\,Mx, and  $10^{23}$\,Mx are confined to below $30^\circ$, $25^\circ$, and $20^\circ$, respectively. Regions of larger area have been shown to be more confined in latitude than those that are smaller \citep{tang:1984,harvey:1993,meunier:2003}.
+
+
+%PLOT 1A. DEEPER ANALYSIS OF FLUX DIAGRAM (TIME OF FLUX EMERGENCE/ TOTAL FLUX EMERGED)
+\begin{figure*}[!t]
+ 
+\includegraphics[width=12cm,angle=0]{images/20110330/plot_1a_analyze_timearemerge.eps}
+\caption{The amount of time that flux is observed to emerge at each latitude. This is measured both by counting the bins in which MFs are observed at each latitude bin ($\sum t$ MF Detect; thick black line) and by measuring the time difference between the first and last observed MF at each latitude bin of cycle 23 ($\Delta t$ Cycle; thin black line). For comparison, $\sum \Phi_{\mathrm{TOT}}$ is over-plotted; this is the flux (averaged over each time bin) summed over all times at each latitude bin (gray line).}\label{plot_1a_analyze_timearemerge}
+\end{figure*}
+
+
+%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+%add plot and discussion of measuring the time that each latitude shows ARs emerging. 
+%sum mask for each latitude, where each pixel is 27 days
+%also just take the difference between the first and last day where ARs are emerging.
+%assumes ARs emerge radially. coriolis force could have some effect
+%can also sum flux produced by each latitude. does not take into account double counting...
+The total time that flux is observed over solar cycle 23 at each latitude is determined and shown in  Figure\,\ref{plot_1a_analyze_timearemerge}. This is done in two ways: the time bins in which MFs are observed are summed for each latitude ($\sum t$ MF Detect; thick black line); the time difference between the first and last observed MF at each latitude is measured ($\Delta t$ Cycle; thin black line). A similar plot of flux summed over time is shown in \citet{jin:2012} that closely matches the profile shape shown here. %We define the solar cycle using the 
+
+
+%the equatorward edge of AR emergence matches the latitude of the torsional oscillation shear. 
+Physically, we interpret the time-latitude profile in Figure\,\ref{plot_1a_analyze_timearemerge} as follows.
+As mentioned earlier, the emergence of ARs at each latitude is thought to be initiated by the torsional oscillation as it progresses from pole to equator. The buoyancy instability that is theoretically created at each latitude would persist for years, until the reservoir of flux at the base of the convection zone is depleted. The time interval of the instability persistence may vary with latitude, depending on the amount of toroidal flux that has been generated at the bottom of the convection zone and could be estimated by the $\sum t$ MF Detect profile. This idea is supported by observations of active longitudes \citep{Gaizauskas:1983, chen:2011} that indicate large amounts of new AR flux appear to emerge from the same subsurface locations, which may have persistent instabilities. These subsurface AR sources may even exist for whole solar cycles \citep{Henney:2002, Berdyugina:2003}.
+
+%The relationship between latitude and the amount of time that ARs are observed to emerge may provide insight into the internal dynamo at the base of the convection zone. 
+%Theoretically, the $\Omega$-effect should result in a reservoir of toroidal flux tubes that become axially twisted and stretched due to shearing at the tachocline. 
+%%The torsional oscillation may cause flux tubes to become hydro-dynamically unstable. The enhanced buoyancy could allow them to ascend through the convection zone more efficiently, eventually emerging as ARs in the photosphere. 
+Furthermore, the total flux that has emerged at each latitude may indicate the density of toroidal flux that has built up at the base of the convection zone due to the $\Omega$-effect \citep{Charbonneau:2010}. However, through simulations, the Coriolis effect has been shown to deflect buoyant flux tubes toward higher latitudes as they rise. The deflection is dependent on magnetic field, so flux tubes with stronger fields are deflected less than than those with weaker fields \citep[][and references therein]{Fan:2009}. 
+%Thus, the subsurface distribution of flux cannot be directly inferred from the distribution of features observed at the surface. If a random distribution of toroidal flux in the active latitudes is assumed, 
+Our observations of the latitudinal distribution of AR fluxes (see Figure\,\ref{plot_1_analyze_fluxbflydiag}) support the simulation results, as weaker features are observed at higher latitudes than stronger features. Also, considering Figure\,\ref{plot_1a_analyze_timearemerge}, the observed flux summed over time is clearly dominated by the largest features, which are deflected the least. As a result, it is likely that the total flux profile is a good estimate of the subsurface flux distribution with latitude.
+%The poleward deflection of rising flux tubes due to the Coriolis effect would have to be taken into account to make a determination of the sub-surface flux distribution.
+
+
+%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+%PLOT 2. FLUX-AREA DISTRIBUTIONS
+%OMFG! i need to make histogram before doing log plot. here my bins are getting bigger depending on the flux or area!! do: histogram(area), plot,histx,histy,/xlog,/ylog!! that is why the plots are so flat... shite burgers.
+\begin{figure*}[!ht]
+ 
+\includegraphics[width=12cm,angle=0]{images/20110330/plot_2_phase_cycle_ar_prop.eps}
+\caption{\emph{Top}: Average magnetic feature area and $\Phi_{\mathrm{TOT}}$ in yearly, 6-month, and 3-month bins (black, dashed gray, and gray lines, respectively). Vertical red lines denote beginning and end of solar cycle phases. Arrows indicate peaks in $\langle$area$\rangle$ and $\langle\Phi\rangle$. \emph{Middle}: Distributions of detection areas for ``rise" (dashed line), ``maximum" (black line), and ``decline" (gray line) phases defined in \emph{top} panel. A power-law fit to the rise-phase distribution is indicated by the solid red line and the bounds of the fit are indicated by the vertical red dashed lines. \emph{Bottom}: Same as \emph{middle} panel, but showing $\Phi_{\mathrm{TOT}}$.}
+\label{plot_2_phase_cycle_ar_prop}
+\end{figure*}
+
+
+It is clear that the latitude distribution of ARs changes over the solar cycle, but the magnetic area (size) and $\Phi_{\mathrm{TOT}}$ are also observed to change. The top panel of Figure\,\ref{plot_2_phase_cycle_ar_prop} shows the mean area and mean $\Phi_{\mathrm{TOT}}$ in yearly bins over the rise, maximum, and decline phases of cycle 23. Three peaks are observed in each plot, the first two being coincident with the double peaks discussed earlier. A third peak is observed a year into the decline phase of the cycle, which is not as readily apparent in the previous plots. The average properties increase with the rise of the cycle, are roughly constant during the maximum phase and decrease over the decline phase \citep[agreeing with the findings of][]{tang:1984}. Due to the large temporal bins (1\,year) and the numbers of detections ($10^4$), it is not likely that these features are merely statistical fluctuations. Interpreting this plot alone, lower mean property values at solar minimum than maximum could be due to either an excess of small detections or a lack of large detections relative to other times.
+
+In order to determine which is true, we plot the AR property distributions for each phase (middle and bottom panel of Figure\,\ref{plot_2_phase_cycle_ar_prop}). A power-law function is fit to each distribution %in the middle and bottom panels
+ of the form,
+\begin{equation}\label{eqn:powerlaw}
+N(x) = C x^\alpha \mbox{\,,}
+\end{equation}
+where $x$ is a given AR property (i.e., area or flux), $C$ is a constant and $\alpha$ is the power-law slope. The area and $\Phi_{\mathrm{TOT}}$ distributions show roughly power-law behaviour between $2\times10^{3}$\,--\,$3\times10^4$\,Mm$^{2}$ and $2\times10^{21}$\,--\,$3.5\times10^{22}$\,Mx, respectively. The fit ranges are shown in the plot by the red vertical dashed lines. Interestingly, the distributions for each phase of the solar cycle exhibit similar power laws. The area threshold imposed by the detection method falls within the first bin in each distribution, causing the number of detections to be artificially truncated. Hence the first bin is excluded from the power-law fitting, the results of which are presented in Table\,\ref{table_2_plaw_fits}.
+
+Recent statistical studies of the properties of ARs have found power-law distributions for area and flux. \citet{Parnell:2009} find a power-law with slope $-1.85$ for the distribution of AR flux between $2\times10^{17}$ and $10^{23}$\,Mx. Differences in the distributions between various studies are likely due to differing methods of feature detection \citep{deforest:2007}. In addition, the effect of double counting the same physical feature due to the inclusion of multiple observations results in a less steep power-law slope \citep{tang:1984}. This explains why our fitted power-law slopes ($-1.5$ for area and $-1.3$ for flux), that are based on many observations over a long period of time, are more shallow than the result of \citet{Parnell:2009}, which are based on single points in time. The divergence from power-law behavior is likely due to the competing effects of the frequency of ARs decreasing with size and the longevity of ARs increasing with size \citep{Lefevre:2011}.
+
+
+\begin{table}[!t]
+\caption{Power-law fits to distributions of AR area and $\Phi_{\mathrm{TOT}}$. The columns containing $\alpha$ values are determined by fitting Equation\,\ref{eqn:powerlaw} to the distributions in Figure\,\ref{plot_2_phase_cycle_ar_prop}. Reduced $ \chi^2 $ values are given for each fit.}
+\label{table_2_plaw_fits}
+\centerline{\begin{tabular}{c c c c c}
+\hline\hline
+Cycle Phase & $\alpha$ (Area) &  $ \chi_{\mathrm{red}}^2 $  & $\alpha$ ($\Phi_{\mathrm{TOT}}$) &  $ \chi_{\mathrm{red}}^2 $  \\ 
+\hline
+Rise & $ -1.51 $ $ \pm $ $ 0.29 $ & $ 81.7 $ & $ -1.29 $ $ \pm $ $ 0.28 $ & $ 5.0 $ \\ 
+Maximum & $ -1.49 $ $ \pm $ $ 0.26 $ & $ 186.9 $ & $ -1.30 $ $ \pm $ $ 0.25 $ & $ 83.1 $ \\ 
+Decline & $ -1.50 $ $ \pm $ $ 0.28 $ & $ 168.5 $ & $ -1.27 $ $ \pm $ $ 0.27 $ & $ 27.1 $ \\ 
+\hline
+\end{tabular}}
+\end{table}
+
+
+The numbers of ARs observed during the maximum phase are larger than the other two phases for all areas and fluxes. While previous studies have found size distributions of similar shape overall \citep{tang:1984,harvey:1993,meunier:2003}, this work shows more structure in the distributions. The rise and decline phases show a depletion of regions of largest flux ($>10^{23}$\,Mx) compared to the maximum phase so that, proportionally, an excess of large regions is observed at solar maximum. This excess at the solar maximum has also been observed in continuum sunspot observations over cycle 23 and previous solar cycles \citep{Hathaway:2010b,Lefevre:2011,Kilcik:2011,deToma:2013}. 
+
+
+%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+%PLOT 4. MDI BUTTERFLY DIAGRAM
+\begin{figure*}[!ht]
+\sidecaption
+\includegraphics[width=12cm,angle=0]{images/20110330/plot_4_magbutt_arsignflux.eps}
+\caption{\emph{Top}: Magnetic butterfly diagram ($1^{\circ}$ latitude and 27\,day time binning) of mean signed magnetic field. \emph{Bottom}: Total detected magnetic feature $\Phi_{\mathrm{NET}}$ with binning the same as the \emph{top} panel.}
+\label{plot_4_magbutt_arsignflux}
+\end{figure*}
+
+
+%\subsection{The Global Field and Large-scale Coronal Structure}\label{subsect_pfsslasco}
+\subsection{Large-scale Magnetic Flux Imbalance}\label{subsect_imbharm}
+
+
+The mean magnetic field at each latitude, averaged over 27\,days ($\sim$1 solar rotation) is shown in the top panel of Figure\,\ref{plot_4_magbutt_arsignflux}. This plot allows us to draw several conclusions. In the northern hemisphere, the polar field begins as positive and reverses to negative around January\,2000. Large unipolar regions of negative flux begin to move poleward from around June\,1997, leading to the reversal. This motion is known as the 'rush to the poles' and is observed as a result of filaments \citep{Lockyer:1931,Hyder:1965} and diffuse unipolar flux \citep{Bumba:1965} being dragged poleward, mainly by the meridional flow \citep[][and references therein]{Sheeley:2005}. At about the same time, an excess of positive flux is observed in the low-latitude active region belt. 
+%Since unipolar regions are not observed to move toward the equator, it is reasoned that 
+The same behaviour is observed in the southern hemisphere, but with reversed polarities.
+
+Since ARs are East-West oriented, it might be assumed that the observed polarity imbalances in the active region belt are created due to features being partially out of the $-60^{\circ}$ to $+60^{\circ}$ longitude field of view. To rule out this possibility, $\Phi_{\mathrm{NET}}$ is determined for detected features with boundaries completely within $\pm60^{\circ}$ longitude. The measurements are binned in time and latitude, resulting in the image shown in the bottom panel of Figure\,\ref{plot_4_magbutt_arsignflux}. The same polarity imbalances are observed in each hemisphere (albeit, less clearly); excess positive flux at low latitudes in the northern hemisphere and negative in the southern.
+
+A flux-balanced MF can have a completely closed magnetic structure. However, a feature which has an excess flux of one polarity must have field which is either quasi-open (connected to the solar wind) or connected to excess flux of the opposite polarity some distance away on the solar surface. In the case of the observed excess flux in Figure\,\ref{plot_4_magbutt_arsignflux}, the low-latitude excess flux (summed over longitude) is likely to be connected both trans-equatorially and to the high-latitude excess flux \citep{Choudhary:2002}. The high-latitude excess flux is also likely to be connected to the poles. Visually, this kind of connectivity is represented in Figure 2 of \citet{Bravo:1998}.
+%, This far-reaching magnetic connectivity allows global polarity balance to be maintained.
+
+
+%PLOT 5. FLUX IMBALANCES
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics*[width=\ScaleIfNeeded,angle=0,clip=true]{images/20110330/plot_5_fluximbal_hi_lo.eps}
+\end{center}
+\caption{\emph{Top}: Total $\Phi_{\mathrm{net}}$ determined from $\langle B_{\mathrm{signed}}\rangle$ in the magnetic butterfly diagram (poleward of detected features; $\Phi_{\langle B \rangle,\mathrm{HI}}$) in northern (red) and southern (blue) hemispheres. \emph{Bottom}: Summed $\Phi_{\mathrm{NET}}$ in the active longitudes detected in magnetic features ($\Phi_{\mathrm{NET,MF}}$; solid lines) and using the magnetic butterfly diagram (dashed lines; $\Phi_{\langle B \rangle,\mathrm{LOW}}$).}
+\label{plot_5_fluximbal_hi_lo}
+\end{figure}
+
+To determine how much imbalanced (net) flux is present in the active (low) latitudes within MFs ($\Phi_{\mathrm{NET,MF}}$) over time, the MF $\Phi_{\mathrm{NET}}$ is summed over each hemisphere using the data shown in the bottom panel of Figure\,\ref{plot_4_magbutt_arsignflux}. The $\Phi_{\mathrm{NET,MF}}$ is presented in the top panel of Figure\,\ref{plot_5_fluximbal_hi_lo}. The low-latitude region is defined to be between the equatorward edge ($\phi_\mathrm{EQ}$) and the poleward edge ($\phi_\mathrm{LOW}$) of the detection mask. The summed $\Phi_{\mathrm{NET}}$ is also determined for the active (low) latitudes using the magnetic butterfly diagram ($\Phi_{\langle B \rangle,\mathrm{LOW}}$), to compare with $\Phi_{\mathrm{NET,MF}}$. 
+
+Flux imbalances observed at high latitudes, above the active latitudes ($\Phi_{\langle B \rangle,\mathrm{HI}}$), are determined using the magnetic butterfly diagram in the top panel of Figure\,\ref{plot_4_magbutt_arsignflux}. The high latitude region is defined in each hemisphere using the poleward edges of the $\Phi_{\mathrm{TOT}} > 2.3\times10^{20}$ detection mask shown in the top panel of Figure\,\ref{plot_1_analyze_fluxbflydiag} as the lower boundary ($\phi_\mathrm{LOW}$; varies) and the upper boundary is defined as $\pm$54\degr\ ($\phi_\mathrm{HI}$; constant). 
+
+The 54\degr\ used to define $\phi_\mathrm{HI}$, is determined by estimating the distance that flux from low-latitude regions is carried poleward by the meridional flow during the time interval of the $\sim$6\,month activity bursts mentioned in the discussion of Figure\,\ref{plot_0_cycletseries_vs_fluxbflydiag}. This is calculated using,
+\begin{equation}
+\Delta \phi = \frac{360^{\circ}}{2\pi} \frac{v_{\mathrm{flow}}\Delta t}{R_{\odot}} \mbox{\,,}
+\end{equation}
+where $\phi$ is heliographic latitude, $v_{\mathrm{flow}}$ is a characteristic meridional flow speed \citep[chosen to be 15\,m\,s$^{-1}$ from measurements in][]{Hathaway:2010}, $\Delta t$ is chosen to be 6\,months and $R_{\odot}$ is the solar radius in meters. This gives a $\Delta \phi$ of 19$^\circ$. Assuming that most ARs emerge below 35$^{\circ}$, we add this $\Delta \phi$, determining $\phi_\mathrm{HI}$ to be 54$^\circ$. 
+Using this threshold, similar patterns and magnitudes of imbalanced flux should be seen at high and low latitudes, but with the high-latitude flux lagging behind that at low latitudes. High-latitude flux measurements will include the majority of the poleward moving flux from a given activity burst.
+%we reason the phase lag between AR and QS flux measured in zharkov 2008 is for this reason
+
+To calculate the summed imbalanced flux in a given hemisphere over a certain latitude range using the magnetic butterfly map, the mean magnetic field measured within $\Delta \phi$ over time is multiplied by the area covered by a band spanning longitudes of $-90$\degr\ to $+90$\degr\ from the central meridian. This yields the total flux at each time,
+\begin{equation}
+\Phi_{\langle B \rangle,\Delta\phi}= 2\pi R_{\odot}^2 \int_{\phi^*_{0}}^{\phi^*_{1}} \langle B(\phi^*) \rangle \sin(\phi^*)\,d\phi^* \mbox{\,,} % = 2\pi R_{\odot}^2 (\cos(\phi_0^*) - \cos(\phi_1^*)) \mbox{\,,}
+\end{equation}
+where $\langle B \rangle$ is the averaged signed magnetic field and $\phi^*_{0}$ and $\phi^*_{1}$ are the co-latitude positions of $\phi_\mathrm{LOW}$ and $\phi_\mathrm{HI}$ for the high-latitude region and $\phi_\mathrm{EQ}$ and $\phi_\mathrm{LOW}$ for the the low-latitude region. These flux measurements are compared to $\Phi_{\mathrm{NET,MF}}$, as shown in Figure\,\ref{plot_5_fluximbal_hi_lo}.
+
+We find both the low- and high-latitude imbalances to be of opposite polarity between  the hemispheres. Additionally, the observed polarity of the imbalance is opposite for the high and low latitudes in a given hemisphere. By comparing $\Phi_{\mathrm{NET,MF}}$ (determined from SMART detections)
+%and $\Phi_{\langle B \rangle}$ for low latitudes ($\Phi_{\langle B \rangle,LOW}$) 
+with $\Phi_{\langle B \rangle,\mathrm{HI}}$ (determined from the magnetic butterfly diagram), we can see that the flux imbalance in the active latitudes is of similar magnitude and opposite in polarity to that at high latitudes during the first half of the solar cycle (i.e., 1997\,--\,2001). This is the first time that such measurements have been directly quantitatively compared. Also, we find that overall, $\Phi_{\langle B \rangle,\mathrm{LOW}}$ shows greater imbalanced flux than $\Phi_{\mathrm{NET,MF}}$. Although these are determined for the same latitude ranges, $\Phi_{\langle B \rangle,\mathrm{LOW}}$ will include many weak flux fragments that are not picked up by SMART, which is designed to only detect strong magnetic fields.
+
+Since significant opposite imbalance in flux is observed in each hemisphere, flux cancelation at the equator is not rapid enough to offset the missing flux carried to the poles by the meridional flow. 
+%It is likely that the excess flux at low latitudes (contained in the leading polarities of ARs) was not then carried to the equator because the leading poles of ARs decay slower than the trailing.
+The excess flux should be contained in the stronger magnetic fields of the AR leading polarities that, if anchored significantly below the photosphere, could resist the surface meridional flows, unlike the weaker AR trailing polarities that are carried much more swiftly to the northern and southern poles. Surface flux transport is like panning for gold. The loose sand (i.e., weak magnetic fields) is washed away by the water (i.e., near-surface flows on the Sun), while the gold nuggets (i.e., strong magnetic fields) stay planted firmly in the pan (i.e., AR).
+
+The reason for the large difference in the magnitude between $\Phi_{\mathrm{NET,MF}}$ and $\Phi_{\langle B \rangle,\mathrm{HI}}$ later in the solar cycle might be the lower latitudes at which sunspot groups begin emerging. The meridional flow peaks in magnitude at around 45\degr, so it may not be strong enough at low latitudes to preferentially carry the trailing polarity polewards, resulting in smaller values of $\Phi_{\langle B \rangle,\mathrm{HI}}$ at high latitudes. Also, one polarity of flux may preferentially cancel at the equator, resulting in larger values of $\Phi_{\mathrm{NET,MF}}$ at low latitudes.
+%The reason $\Phi_{\mathrm{net}}$ differs from $\Phi_{\langle B \rangle,LOW}$ is due the methods used to calculate them. The properties of AR detections averaged over a rotation are used determine $\Phi_{\mathrm{net}}$, while raw magnetograms are averaged to determine $\Phi_{\langle B \rangle,LOW}$ and $\Phi_{\langle B \rangle,HI}$.
+
+The top panel of Figure\,\ref{plot_5_fluximbal_hi_lo} clearly shows three major peaks in $\Phi_{\langle B \rangle,\mathrm{HI}}$ where there is a large amount ($\sim$$2\times10^{22}$\,Mx) of imbalanced flux at high latitudes. The peaks are clearer in the northern hemisphere than southern hemisphere. However, they are not clearly observed at low latitudes (Figure\,\ref{plot_5_fluximbal_hi_lo}, bottom panel). The peaks roughly correspond in time to the three peaks in average MF area and $\Phi_\mathrm{TOT}$ presented in Figure\,\ref{plot_2_phase_cycle_ar_prop}. This suggests that these times of increased average MF size and flux are primarily responsible for the global polar magnetic field reversal that occurs between 1999 and 2001 (i.e., during the time of the first two peaks in high-latitude flux imbalance).
+
+%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+\subsection{The Global Magnetic Field Structure}
+
+
+%LASCO DATA
+The global PFSS model of \citet{Schrijver:2003} is combined with \emph{SOHO}/Large Angle and Spectrometric Coronagraph Experiment \citep[LASCO;][]{brueckner:1995} Level 1 data, by overlaying extrapolated magnetic fields lines on white-light coronagraph images in Figure\,\ref{plot_3_lasco_pfss}. The coronagraph images are radially filtered by dividing out the average intensity in 5 pixel-width annuli. The coronagraph data and PFSS extrapolations are matched as close as possible in time. 
+
+These reversed colour images show regions of enhanced white-light Thompson scattering in the extended corona (as darkened areas) and indicate the large-scale magnetic structure exhibits enhanced density. In Figure\,\ref{plot_3_lasco_pfss}, coronal streamers seen in the LASCO images have roughly the same configuration as the modeled closed-loop structures that approach the PFSS source surface. However, the observed coronal structures appear to be more confined to the equatorial region than the extrapolated magnetic structures. This is especially apparent in the first two panels of Figure\,\ref{plot_3_lasco_pfss} (i.e., 1996 and 1997). This may be due to the gas pressure becoming dominant over the magnetic pressure, dragging out the fields toward the equator at a lower height than predicted by the PFSS model.
+
+
+%PLOT 3. PFSS VS. LASCO
+\begin{landscape}
+\begin{figure}
+\begin{center}
+%\ffigbox[\FBwidth]{
+%\includegraphics*[width=14cm,angle=0]{images/20110330/plot_3_lasco_pfss_2_ill10.eps}
+\includegraphics[width=\textheight,angle=0]{images/20110330/plot_3_lasco_pfss_2_ill10.eps}
+\end{center}
+\caption{Comparison between global PFSS extrapolations and white-light coronagraph observations. Color denotes closed (black), positive open (light-gray) and negative open (dark-gray) field lines.}\label{plot_3_lasco_pfss}
+%}{\rule{24cm}{15cm}}
+\end{figure}
+\end{landscape}
+
+
+Major differences between the modeled and observed coronal magnetic structure can occur because the corona is dynamic on the scale of hours, while photospheric features tend to exhibit dynamics on the scale of days, once fully emerged. For instance, transient phenomena may occur (e.g., coronal mass ejections and outflows) that do not cause significant structural changes in the photospheric magnetic field. Differences between the extrapolated magnetic structures and regions of enhanced coronal density may be caused partially by this and also by the methods used in the PFSS model to generate a 360\degr\ map of the solar surface. 
+
+Rapid flux emergence could occur that is beyond the assimilation edge of the PFSS model. The model used in this work relies on photospheric field maps produced by assimilating new flux at the eastern edge of the solar disk as it rotates into view. Any flux beyond that edge is estimated from that which has rotated off the western edge of the disk approximately two weeks before. Regions which have emerged on the backside of the Sun and not yet rotated on disk will not be included in a given extrapolation because reliable magnetic field observations of the far side of the Sun are not available and the dynamic time scale of the solar surface and atmosphere is much shorter than the rotation period. Finally, LOS limb effects in the magnetograms, such as false polarity separation lines, can also affect the field extrapolation.
+%Therefore, any PFSS results cannot be a true snap shot of the Sun and must smear out measurements in time and space.
+However, the main features in the coronal images and the extrapolations match overall, as is to be expected since the configuration of surface MFs largely determines the global configuration of the atmosphere exterior to the Sun \citep{Schrijver:2003}. \citet{Wang:2009} also compare modeled coronal emission to LASCO data using a PFSS algorithm, finding good agreement.
+
+%PLOT -. SPHERICAL HARMONIC MODE EXAMPLES
+\begin{figure}[!t]
+\begin{center}
+\includegraphics[width=\columnwidth,angle=0]{images/20110330/plot_6_5_spheric_harm_examp2.eps}
+\end{center}
+\caption{Examples of axially symmetric and hemispherically antisymmetric spherical harmonics. The modes from left to right are the dipole, $l$$=$3, and $l$$=$5 modes, with white representing positive and black representing negative regions of $\Psi(r,\theta,\phi^*)$ at radius 1\,$R_{\odot}$. Sections of the $\langle B_{\mathrm{signed}} \rangle$ butterfly diagram that exhibit similar patterns are included adjacent to each mode for context.}
+\label{plot_6_5_spheric_harm_examp}
+\end{figure}
+
+The PFSS magnetic field extrapolations are used to determine how the global magnetic field changes over the solar cycle. Spherical harmonics, as defined by Equation\,\ref{eqn:harmcoeff}, are used here to describe the large-scale structure of the field. The field resembles different modes at differing phases of the solar cycle. When no MFs are detected, such as during solar minimum, the global field configuration is generally that of a dipole (Figure\,\ref{plot_6_5_spheric_harm_examp}, left panel). After the first ARs of the cycle have emerged and begun to decay, the $l$$=$5 moment becomes dominant (Figure\,\ref{plot_6_5_spheric_harm_examp}, right panel). Finally, after the northern and southern poles have switched polarity, the following polarity of an AR is the same as that of its nearest pole and there is the $l$$=$3 moment becomes dominant (Figure\,\ref{plot_6_5_spheric_harm_examp}, middle panel).
+
+
+%PLOT 6. POLAR FIELDS AND MULTI-POLAR COEFFICIENTS
+\begin{figure*}[!t]
+\sidecaption
+\includegraphics[width=12cm,angle=0]{images/20110330/plot_6_polarb_sphereharm_v2.eps}
+\caption{\emph{Top}: Polar field strengths in the northern (red) and southern (blue) hemispheres. \emph{Middle}: PFSS spherical harmonic coefficients for the monopolar ($C_{0,0}$; gray line), quadrupolar ($C_{2,0}$; gray line) and $l$$=$4 ($C_{4,0}$; dashed line) modes. The dominance of the $C_{2,0}$ and $C_{4,0}$ modes is indicated by the horizontal solid and dashed lines, respectively. \emph{Bottom}: PFSS spherical harmonic coefficients for the dipolar ($C_{1,0}$; black line), $l$$=$3 ($C_{3,0}$; gray line) and $l$$=$5 ($C_{5,0}$; dashed line) modes. The coefficients are determined for a height of $r=1R_{\odot}$ (i.e., the solar surface).}
+\label{plot_6_polarb_sphereharm}
+\end{figure*}
+
+
+The top panel of Figure\,\ref{plot_6_polarb_sphereharm} shows the polar field strengths averaged over two latitude bands. The field in the southern hemisphere (blue) appears to reverse before that in the northern (red). Field reversal occurs smoothly over 2\,--\,3\,years in the northern hemisphere while it happens in several year-scale bursts in the southern hemisphere. This is similar to the evolution of $\Phi_{\mathrm{TOT,S}}$ (Figure\,\ref{plot_0_cycletseries_vs_fluxbflydiag}) that exhibits large peaks and troughs.
+
+To determine the significance of each of the harmonic modes to the global field configuration, we can compare the harmonic coefficients of each mode (see Equation \ref{eqn_harm_coeff}) over time. In the middle and bottom panels of Figure\,\ref{plot_6_polarb_sphereharm}, the strength of the modes at a radius of 1\,$R_{\odot}$ is shown. The dominance of each mode is determined by smoothing each curve by $\sim$5\,rotations and taking the absolute value. The dominant mode coefficient at each point in time is indicated by the horizontal line style near the top of each plot. At solar minimum the polar field strengths are largest and few MFs are present at mid-to-low latitudes, resulting in the dipole ($l$$=$0) harmonic coefficient dominating (Figure\,\ref{plot_6_polarb_sphereharm}, bottom panel black line). There is also a significant hexapole ($l$$=$3) moment during this time (Figure\,\ref{plot_6_polarb_sphereharm}, bottom panel gray line), probably due to the presence of single bipolar MFs on disk. As more ARs emerge and decay, the decapole ($l$$=$5) mode (Figure\,\ref{plot_6_polarb_sphereharm}, bottom panel dashed line) becomes dominant from around 1999 to 2001. During mid 2001 to early 2002 the $l$$=$3 mode dominates, as the poles have switched polarity. The dipolar mode becomes dominant again from early 2002 onward, when few enough ARs are present.
+
+Figure\,\ref{plot_6_polarb_sphereharm} also shows several other modes of interest. Many studies \citep[e.g.,][]{mordvinov:2007,DeRosa:2012} focus on the quadrupolar ($l$$=$2) mode (Figure\,\ref{plot_6_polarb_sphereharm}, middle panel black line).
+%, but we find the hexapole to be larger in this case. 
+The octapolar ($l$$=$4) moment (Figure\,\ref{plot_6_polarb_sphereharm}, middle panel dashed line) is smaller than the other modes shown, but is most significant between $\sim$1999\,--\,2000, when the largest number of alternating flux bands are present. Dynamics in these non-axisymmetric modes appear to strongly depend on the presence of ARs, as can be seen by comparing the curves to the plot of $\Phi_{\mathrm{TOT,S}}$ in Figure\,\ref{plot_0_cycletseries_vs_fluxbflydiag}. The equatorial dipole has also been shown to indicate the presence of ARs \citep{Petrie:2013}. Finally, we show the monopole moment (gray line, middle panel), which is unphysical and results from an imbalance of net flux at the lower boundary of the PFSS model. This mode is periodically comparable to any of the others and must be considered when determining the structure of the modeled magnetic field\footnote{The monopole moment has been reduced in the SSW PFSS database solutions, but still appears in the $A$ and $B$ harmonic coefficient arrays (as shown here).}. A feature of one-year periodicity is apparent in the quadrupole and monopole modes; it appears after the \emph{SOHO} spacecraft began its 180\degr\ roll every 6\,months and may be caused by an uneven CCD response within the \emph{SOHO}/MDI instrument (Marc Derosa 2012, private communication).
+
+
+%PLOT 6A. POLAR FIELDS AND MULTI-POLAR COEFFICIENTS
+\begin{figure*}[!t]
+\sidecaption
+\includegraphics[width=12cm,angle=0]{images/20110330/plot_6_1_polarb_sphereharm_r1_75_v2.eps}
+\caption{PFSS spherical harmonic coefficients as in the middle and bottom panels of Figure\,\ref{plot_6_polarb_sphereharm}, but calculated at a height of 1.75\,$R_{\odot}$ from Sun center.}
+\label{plot_6a_polarb_sphereharm}
+\end{figure*}
+
+Figure\,\ref{plot_6a_polarb_sphereharm} presents spherical harmonic coefficients for the same modes as the middle and bottom panels of Figure\,\ref{plot_6_polarb_sphereharm}, but calculated at 1.75\,$R_{\odot}$ from Sun center. The main difference between these plots is that the magnitudes of the mode coefficients have decreased substantially with the increase in height. The higher modes decrease more than the lower modes, as is expected due to their dependence on closed-flux MFs that do not extend into the higher solar atmosphere. As such, the dipole mode is generally dominant at this increased distance from the solar surface. 
+
+\section{Conclusions and Future Work}\label{discussion}
+
+In this paper, we use automated MF extraction to determine the properties of a large sample of MFs that emerge through the solar photosphere. The evolution of large-scale magnetic fields can be characterized by studying the properties of emergent MFs over time. Overall this work supports the idea of the Babcock-Leighton mechanism, but also provides some new insights and draws some new conclusions. A summary of our results is as follows: 
+\begin{enumerate}
+
+\item The double peak observed in the solar activity cycle only occurs in the southern hemisphere. Activity in the northern hemisphere exhibits a much smoother rise and decline over the cycle, indicating that the subsurface production of strong magnetic field structures by the magnetic dynamo is asymmetric;
+
+\item Hemispheric asymmetries based on magnetic flux measurements show that the equatorward migration of MF emergence is significantly faster in the northern hemisphere; MFs emergence occurs for longer and more flux is observed on disk in the southern hemisphere over cycle 23;
+
+\item Statistically, an excess of MFs with large flux is found in the ``maximum" phase of the solar cycle; those with largest flux are most confined toward the equatorward edge of the butterfly map;
+
+\item Large-scale flux imbalance in the active (lower) latitudes is opposite but similar in magnitude to that at higher latitudes; this is the first quantitative measurement connecting imbalanced active region flux with the diffuse flux at higher latitudes;
+
+\item Three peaks that are observed in high-latitude flux imbalances are roughly co-temporal with the three peaks in average MF area and flux, and appear to be responsible for the global polar magnetic field reversal;
+
+\item Considering the global magnetic field, similar large-scale features are observed in coronal images and PFSS extrapolations, indicating that magnetic features at the solar surface largely determine the large-scale structure of the corona;
+
+\item By investigating the spherical harmonic coefficients obtained from the PFSS model, we find that the dipole mode dominates at solar minimum, but the decapolar ($l$$=$5) and hexapolar ($l$$=$3) modes are dominant at other times during the cycle;
+
+%ADD REST OF RESULTS TO ABSTRACT   
+\item The large-scale magnetic field is shown to become less multipolar (i.e., simpler) with height.
+\end{enumerate}
+
+Understanding the relationship between latitude and MF flux may lead to knowledge of the magnetic flux distribution at the base of the tachocline at the start of the solar cycle, as discussed in Section\,\ref{subsect_arcycle}. Alternatively, this could be related to the equatorward progression of the torsional oscillation, which may be responsible for the onset of MF emergence at a given latitude. The excess of MFs with large flux during the maximum phase of the solar cycle may result from the formation of sunspot nests or active longitudes, in which multiple magnetic features emerge at the same position on the solar surface, sometimes forming large AR complexes.
+
+Considering the discussion of persistent instabilities surrounding Figure\,\ref{plot_1a_analyze_timearemerge}, the scale-free nature of magnetic flux emergence and the cycle dependence of MF properties shown here may imply that instabilities within the subsurface sources of MFs result in emergence according to self-organised criticality, as considered by \citet{Aschwanden:2011} and \citet{Abramenko:2013}. The scale-free nature of solar flare occurrence, which can be explained using a self-organised criticality avalanche model \citep[see, e.g.,][]{Lu:1991}, is mirrored by the scale-free nature of MFs shown in this work and \citet{Parnell:2009}. Perhaps the entire solar cycle can be modeled as an avalanche of individual flux emergence events. At first a trickle of MF emergence is observed, but as time goes on the rate of emergence grows like an avalanche picking up speed, producing the largest number of ARs with the largest flux at the cycle maximum, until finally slowing down in the declining phase as the subsurface reservoir of magnetic flux becomes depleted. 
+%make this paragraph sound better!! excentuate results!
+
+%Some authors, including \citet{Temmer:2006}, have shown that the emergence of sunspot groups is hemispherically asymmetric. 
+%This work presents one of the few comparisons between ARs and hemispheric flux imbalance. 
+
+The latitude-dependent flux imbalances presented and discussed in Section\,\ref{subsect_imbharm} result from the trailing polarity of AR magnetic flux being preferentially carried to high latitudes by the meridional flow. Additionally, our results suggest that three periods of increased MF average area and flux provides most of the flux that is carried poleward, which subsequently leads to the global polar magnetic field reversal. The dominance of azimuthally-symmetric spherical harmonic modes over time is a result of the large-scale distribution of locally imbalanced flux. Alternating azimuthal bands of imbalanced flux that vary over the solar cycle are shown to play a decisive role in determining the structure of the global magnetic field. The investigation of spherical harmonic modes reveals that the dipole mode is dominant near solar minimum, both at the solar surface and further out. Since the strength of higher harmonic modes decreases with distance more rapidly, the structure of the large-scale magnetic field tends to simplify with increasing distance from the solar surface.
+
+%\begin{itemize}
+%\item The double peak observed in the solar activity cycle only occurs in the southern hemisphere and activity in the northern hemisphere exhibits a much smoother rise and decline over the cycle, indicating that the subsurface production of strong magnetic field structures due to the magnetic dynamo is asymmetric. 
+%\item The emergence of features of largest magnetic flux are most confined in latitude and this latitude moves equatorward over the solar cycle.  
+%\item There is an excess of magnetic features with large flux in the maximum phase of the solar cycle. This could result from the formation of sunspot nests or active longitudes, in which multiple magnetic features emerge at the same position on the solar surface, sometimes forming large AR complexes.
+%\item The flux imbalance in the north (south) active latitudes is positive (negative) in polarity and of the same order of magnitude to that at north (south) high latitudes for cycle 23. This is the first time this comparison has been made. We suggest that the observed flux imbalance results from one polarity of magnetic flux being preferentially carried to high latitudes by the meridional flow.
+%\item The dominance of certain global magnetic field spherical harmonic moments over the solar cycle is a result of the large-scale distribution of locally imbalanced flux. Alternating latitudinal bands of imbalanced flux which vary over the solar cycle are shown to have a significant impact on the global magnetic field.
+%\item The investigation of spherical harmonic modes reveals the dipole mode is dominant near solar minimum at the solar surface and further out. Since the strength of higher harmonic modes dies off  with distance more rapidly, the structure of the large-scale magnetic field tends to simplify away from the solar surface.
+%\end{itemize}
+
+%ISSUES WITH OUR METHODS ETC
+\citet{meunier:2003} compares the flux distribution of MFs in each hemisphere, finding different excesses of detected features in each hemisphere depending on the threshold used in their detection method, while our results show a clear dominance of each hemisphere at different times during the solar cycle. However, the use of SMART for detecting ARs does affect the measurement of flux imbalance. Weaker fields at the edges of trailing plage regions associated with ARs are less likely to be included in the SMART detection contours than the dense fields of sunspots. Thus, if a region emerges flux balanced, it will be left with an excess of dense leading-polarity flux as the trailing polarity decays. However, the same dominant-polarity pattern is observed in the butterfly diagram of flux imbalance constructed using raw magnetograms (Figure\,\ref{plot_4_magbutt_arsignflux}, top panel) and that constructed using SMART detections (Figure\,\ref{plot_4_magbutt_arsignflux}, bottom panel). Thus, it is likely that the observed polarity excesses are merely exaggerated, rather than incorrect.  
+
+The non-physical global monopole moment is an artifact of the assimilation method used by the PFSS model to estimate conditions on the back side of the Sun. At any given time, positive and negative flux should be balanced when considering the entire solar surface. However, the assimilation algorithm will introduce a part of an AR to the model box as it rotates on or off disk and this results in an imbalance of net flux. A clear improvement to this model would involve altering the assimilation algorithm to maintain a net flux closer to zero.
+
+%PHYSICAL IMPLICATIONS
+%FUTURE WORK
+
+This work has resulted in the characterization of MFs and their emergence over the solar cycle. Although the choice of divisions for solar cycle phases differs, our results agree with previous work that there is an excess of large ARs (both in size and flux) around solar maximum \citep[e.g.,][]{tang:1984,harvey:1993,meunier:2003}. This is important for constraining dynamo models. For instance, we have determined the latitudinal distribution of the flux and size of detected features over time that could be tied to a model of buoyant flux tube deflection due to the coriolis force to constrain their sub-surface properties. In the future, a detailed comparison of sunspot group detections and the residual meridional flow and differential rotation (i.e., the torsional oscillation) could indicate the nature of their relationship. Currently, it is only clear that magnetic activity and the torsional oscillation is  well correlated in time and latitude \citep{Hathaway:2011}. The next step in studying the solar activity cycle is to tie observations of emergent solar features to both phenomenological and mean-field dynamo models of the solar convection zone.  
+%In a future study we investigate the processes that govern magnetic flux transport across the solar surface, that fuel the Babcock-Leighton process \citep{higgins:2012b}.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{acks}
+The authors wish to thank Marc DeRosa for making his PFSS extrapolations available and for valuable discussions and suggestions concerning this work. The authors also thank the SOHO/MDI consortia for making their data available, and Karel Schrijver for valuable discussions and for providing assimilation model data and plots. PAH and DSB were both supported by the ESA Prodex programme and the European Commission's Seventh Framework Programme (FP7) -- PAH through the HELIO Capacities grant and DSB through a Marie Curie Intra-European Fellowship.
+\end{acks}
+
+
+%%% BIBLIOGRAPHY %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+   
+     % format of references provided by the journal (.bst)
+\bibliographystyle{spr-mp-sola}
+%\bibliographystyle{spr-mp-sola-cnd} %% Alternative style: no title,
+                                      % no concluding page. 
+
+     % name your Bibtex file containing your references (.bib)
+\bibliography{database}  
+
+     % Checking: look if the file containing the ``\bibitem'' exits
+     %           so check if the .bbl file exist (bibTeX compilation)
+%\IfFileExists{\jobname.bbl}{} {\typeout{}
+%\typeout{****************************************************}
+%\typeout{****************************************************}
+%\typeout{** Please run "bibtex \jobname" to obtain} \typeout{**
+%the bibliography and then re-run LaTeX} \typeout{** twice to fix
+%the references !}
+%\typeout{****************************************************}
+%\typeout{****************************************************}
+%\typeout{}}
+
+\appendix
+\section{Version 2 of the Assimilation Model}
+
+\begin{figure}[!t]
+\begin{center}
+\includegraphics[width=\columnwidth,angle=0]{images/20110330/appendix_karel_assymflux.eps}
+\end{center}
+\caption{The state of the Version 2 flux assimilation model over time. \emph{Top}: the total magnetic flux present in the model runs over time. \emph{Middle}: the net flux present in the model runs over time. Data is courtesy of Karel Schrijver.}
+\label{plot_assim}
+\end{figure}
+
+%Total polar flux
+\begin{figure}[!t]
+\begin{center}
+\includegraphics[width=\columnwidth,angle=0]{images/20110330/appendix_karel_polar.eps}
+\end{center}
+\caption{The polar flux from Version 2 of the assimilation model. The $\Phi_{NET}$ on the North pole and South pole are represented by the red and blue lines, respectively. The sum of North and South $\Phi_{TOT}$ is shown by the black line.}
+\label{plot_assim_poles}
+\end{figure}
+
+The Version 2 (V2) assimilation model tested in this work (see Section\,\ref{sub:sphharm}) assimilates new magnetic flux from magnetogram observations into the model domain and evolves the flux over time \citep{Schrijver:2001,Schrijver:2001c}. The total flux within the model time bounds is shown in the top panel of Figure\,\ref{plot_assim}. When non-zero net flux is assimilated into the model, this contributes to the non-physical monopole ($l$$=$0) moment of the model. The net flux present in the model solutions over time is shown in the middle panel. The total flux present in the model, poleward of $\pm$60$^\circ$ latitude, is shown in Figure\,\ref{plot_assim_poles}. The V2 documentation\footnote{\url{http://www.lmsal.com/forecast/surfflux-model-v2/}} includes comparison plots of the polar field strengths between those measured using \emph{SOHO}/MDI and \emph{SDO}/HMI and those simulated using the Version 1 (V1) and V2 models over solar cycle 23. V2 results in a more realistic approximation of the polar magnetic field strengths than V1, as shown in Figures\,\ref{plot_soi_poles}, \ref{plot_pfss_poles_v1} and \ref{plot_pfss_poles_v2}.
+
+%SOI polar field data
+\begin{figure}[!t]
+\begin{center}
+\includegraphics[width=\columnwidth,angle=0]{images/20110330/appendix_polar_soi.eps}
+\end{center}
+\caption{The polar-field strengths as determined by using \emph{SOHO}/MDI and \emph{SDO}/HMI data. From PFSS Version 2 documentation and courtesy of Xudong Sun of Stanford University.}
+\label{plot_soi_poles}
+\end{figure}
+
+\begin{figure}[!t]
+\begin{center}
+\includegraphics[width=\columnwidth,angle=0]{images/20110330/appendix_polar_pfss_v1.eps}
+\end{center}
+\caption{The polar field strengths as simulated by PFSS Version 1. From PFSS Version 2 documentation.}
+\label{plot_pfss_poles_v1}
+\end{figure}
+
+\begin{figure}[!t]
+\begin{center}
+\includegraphics[width=\columnwidth,angle=0]{images/20110330/appendix_polar_pfss_v2.eps}
+\end{center}
+\caption{The polar field strengths as simulated by PFSS Version 2. From PFSS Version 2 documentation.}
+\label{plot_pfss_poles_v2}
+\end{figure}
+
+Figures\,\ref{plot_6_polarb_sphereharm_v1} and \ref{plot_6a_polarb_sphereharm_v1} are created using the V1 code, and can be directly compared to Figures\,\ref{plot_6_polarb_sphereharm} and \ref{plot_6a_polarb_sphereharm}. Here, two horizontal lines in each plot panel indicates the dominance of modes in both V1 and V2. The main difference is that the $C_{2,0}$ and $C_{4,0}$ modes dominate over each other at different times through the solar cycle in each version. More importantly, in V2 the $C_{1,0}$ mode becomes dominant earlier in the solar cycle, which truncates the interval over which the $C_{3,0}$ mode dominates. Considering Figure\,\ref{plot_6a_polarb_sphereharm_v1}, there is less of a difference in comparing the dominance of the modes at larger radii from the solar surface. The dominance of the dipole mode over the other modes in increased in V2. These results are largely expected because the main difference in the surface magnetic field between the PFSS versions is the increased polar field strength in V2 over the second half of the solar cycle, as observed when comparing Figures\,\ref{plot_pfss_poles_v1} and \ref{plot_pfss_poles_v2}.
+
+%PLOT 6. POLAR FIELDS AND MULTI-POLAR COEFFICIENTS
+\begin{figure*}[!t]
+ 
+\includegraphics[width=12cm,angle=0]{images/20110330/plot_6_polarb_sphereharm.eps}
+\caption{\emph{Top}: Polar field strengths in the northern (red) and southern (blue) hemispheres. \emph{Middle}: spherical harmonic coefficients, determined using Version 1 of the assimilation code, for the monopolar ($C_{0,0}$; gray line), quadrupolar ($C_{2,0}$; gray line) and $l$$=$4 ($C_{4,0}$; dashed line) modes. The dominance of the $C_{2,0}$ and $C_{4,0}$ modes is indicated by the horizontal solid and dashed lines, respectively. A second line indicating the same information, but using Version 2 of the code is included for comparison. \emph{Bottom}:  spherical harmonic coefficients for the dipolar ($C_{1,0}$; black line), $l$$=$3 ($C_{3,0}$; gray line) and $l$$=$5 ($C_{5,0}$; dashed line) modes. The coefficients are determined for a height of $R=1R_{\odot}$ (i.e., the solar surface).}
+\label{plot_6_polarb_sphereharm_v1}
+\end{figure*}
+
+%PLOT 6A. POLAR FIELDS AND MULTI-POLAR COEFFICIENTS
+\begin{figure*}[!t]
+ 
+\includegraphics[width=12cm,angle=0]{images/20110330/plot_6_1_polarb_sphereharm_r1_75.eps}
+\caption{PFSS spherical harmonic coefficients as in the middle and bottom panels of Figure\,\ref{plot_6_polarb_sphereharm_v1}, but calculated at a height of 1.75\,$R_{\odot}$ from Sun center.}
+\label{plot_6a_polarb_sphereharm_v1}
+\end{figure*}
+
+\end{article} 
+
+\end{document}
