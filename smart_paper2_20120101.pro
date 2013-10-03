@@ -92,13 +92,13 @@ setcolors,/sys,/silent,/quiet
 	oplot,tfluxN27dseries-mintimseries,fluxN27dseries*1d16/1d23,ps=nsym,color=ncolor
 	oplot,tfluxS27dseries-mintimseries,fluxS27dseries*1d16/1d23,ps=ssym,color=scolor
 	
-	legend,['SSN',textoidl('\Phi_{TOT}'), textoidl('\Phi_{TOT,N}'), textoidl('\Phi_{TOT,S}')],/top,/right,color=[0,ncolor,scolor,!gray],psym=[0,nsym,ssym,0]
+	legend,['SSN',textoidl('\Phi_{TOT}'), textoidl('\Phi_{TOT,N}'), textoidl('\Phi_{TOT,S}')],/top,/right,color=[!gray,0,ncolor,scolor],psym=[0,0,nsym,ssym]
 loadct,0
 	;flux butterfly diag
 	posfluximg=[.13,.1,.95,.525]
 	plot_image,(-1.)*FLUXIMAGE^(.4) > (-300.),pos=posfluximg,color=255,/noerase
 	utplot,xarr-mintimseries,yarr,mintimseries,/nodat,pos=posfluximg,/noerase,/xsty,/ysty,ytit='Latitude [deg.]',xtit='Year (Begins 1 June 1996)'
-	
+	hline,0,color=100,thick=10
 	cbchars=2
 ;	colorbar,maxrange=(300.)^(1./.4)*1d16,minrange=0.,/invert,pos=[.6,.14,.8,.16],color=0,chars=!p.charsize
 	colimg=(-1.)*(findgen(256)/255.*(1.56d6-min(FLUXIMAGE))+min(FLUXIMAGE))^(.4) > (-300.)
@@ -285,8 +285,8 @@ setcolors,/sys,/silent,/quiet
 
 ;Plot centroid lines
 utplot,xarr-mintimseries,nfluxcent,mintimseries,yran=[-60,60],/xsty,xran=[0,tcrop-mintimseries],pos=[.12,.525,.95,.95],xtickname=strarr(10)+' ',xtit='',/nodata,ytit='Latitude [deg.]',thick=5
-oplot,xarr-mintimseries,nfluxcent,color=!gray,ps=10 ;,thick=3
-oplot,xarr-mintimseries,sfluxcent,color=!gray,ps=10 ;,thick=3
+oplot,xarr-mintimseries,nfluxcent,color=!gray,ps=10,thick=10
+oplot,xarr-mintimseries,sfluxcent,color=!gray,ps=10,thick=10
 
 ;Over plot north edges
 oplot,xarr[0:nlim]-mintimseries,nfluxmm[0,0:nlim],ps=1,color=!gray
@@ -601,11 +601,11 @@ vline,[trise,tmax,tdecay,tend]-reftim,color=!red,lines=0
 
 ;indicate peaks on year bin plots
 plotsym,2,5,thick=5
-plots,[anytim('1-jun-2000'),anytim('1-jun-2002'),anytim('1-jun-2004')]-reftim,[6000,6000,6000],ps=8
+plots,[anytim('1-jun-2000'),anytim('1-jun-2002'),anytim('1-jun-2004')]-reftim,[6000,6000,6000]/1d3,ps=8
 
-xyouts,anytim('1-jun-1997')-reftim,4500,'Rise',/data
-xyouts,anytim('1-jun-2000')-reftim,4500,'Maximum',/data
-xyouts,anytim('1-jun-2004')-reftim,4500,'Decline',/data
+xyouts,anytim('1-jun-1997')-reftim,4500/1d3,'Rise',/data
+xyouts,anytim('1-jun-2000')-reftim,4500/1d3,'Maximum',/data
+xyouts,anytim('1-jun-2004')-reftim,4500/1d3,'Decline',/data
 
 utplot,tfluxyrbin-reftim,fluxmeanyrbin*1d16/1d21,reftim,ps=10,position=[.12,.67,.97,.83],/noerase,ytitle='<'+textoidl('\Phi_{TOT}')+'> ['+textoidl('\times10^{21}')+' Mx]',/xsty,xtit='Year (Begins 1 January 1996)', $
 	yran=[2,11],/ysty
@@ -616,7 +616,7 @@ oplot,tfluxyrbin-reftim,fluxmeanyrbin*1d16/1d21,ps=10
 vline,[trise,tmax,tdecay,tend]-reftim,color=!red,lines=0
 
 ;indicate peaks on year bin plots
-plots,[anytim('1-jun-1999'),anytim('1-jun-2002'),anytim('1-jun-2004')]-reftim,[5d21,5d21,5d21],ps=8,thick=2
+plots,[anytim('1-jun-1999'),anytim('1-jun-2002'),anytim('1-jun-2004')]-reftim,[5d21,5d21,5d21]/1d21,ps=8,thick=2
 
 ;plot area distributions here
 !p.position=[.12,.37,.97,.62]
@@ -838,6 +838,14 @@ mintim=min(timrebin)
 ;utplot,timrebin-mintim,findgen(n_elements(timrebin)),mintim,/nodat,/noerase,/xsty,yran=[-90+24,89-24.],/ysty,ytit='Latitude'
 plot_image,magrebincrop[*,24:153]<3>(-3),/nosq,color=255,xticklen=.0001,yticklen=.0001,xtickname=strarr(10)+' ',ytickname=strarr(10)+' '
 utplot,timrebincrop-mintim,findgen(n_elements(timrebincrop)),mintim,/nodat,/noerase,/xsty,yran=[-90+24,89-24.],/ysty,ytit='Latitude [deg.]'
+
+setcolors,/sys,/sil
+plotsym,1,3,thick=5
+plots,[anytim('1-mar-2000'),anytim('1-feb-2001'),anytim('1-mar-2003'),anytim('1-jun-2005')]-mintim,[65,65,65,65],ps=8,thick=2,color=!red
+plotsym,2,3,thick=5
+plots,[anytim('1-jun-1999'),anytim('1-jan-2001'),anytim('1-jun-2003')]-mintim,[-65,-65,-65],ps=8,thick=2,color=!blue
+loadct,0,/sil
+
 xyouts,.701,.869,'<B'+textoidl('_{SIGNED}')+'> [G]',/norm,color=255
 xyouts,.699,.871,'<B'+textoidl('_{SIGNED}')+'> [G]',/norm,color=255
 xyouts,.699,.869,'<B'+textoidl('_{SIGNED}')+'> [G]',/norm,color=255
